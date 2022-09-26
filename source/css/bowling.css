@@ -1,0 +1,43 @@
+.bowling{
+    margin: auto;
+}
+
+.bowling tr th{
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #fff;
+    font-weight: 400;
+    position: relative;
+    z-index: 1;
+    text-decoration: none;
+    text-align: center;
+}
+label {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #fff;
+    font-weight: 400;
+    position: relative;
+    z-index: 1;
+    text-decoration: none;
+}
+
+td {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #fff;
+    font-weight: 400;
+    position: relative;
+    z-index: 1;
+    text-decoration: none;
+    text-align: center;
+}
+
+table {
+    border:white;
+    width: 95%;
+}
+
+tr {
+    height: 40px;
+}
