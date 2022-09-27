@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Order stock</title>
+    <title>Order Stock</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/stock.css">
 </head>
 <body>
 <div class="menu">
@@ -45,7 +46,37 @@
         </div>
     </div>
 </div>
-<div class="content" style="background-image: url('../resources/stock-bg.jpg'); background-position: center; background-repeat: no-repeat;background-size: cover;float: left;width: 100%;height: 100vh; overflow: scroll; opacity: 0.6">
+<table>
+    <thead>
+    <th>Item</th>
+    <th>Current Quantity</th>
+    <th>Order Quantity</th>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Bowling Balls</td>
+        <td>50</td>
+        <td><input type="number" value="0"></td>
+    </tr>
+    <tr>
+        <td>Air Hockey Pucks</td>
+        <td>50</td>
+        <td><input type="number" value="0"></td>
+    </tr>
+    <tr>
+        <td>Bowling Pins</td>
+        <td>50</td>
+        <td><input type="number" value="0"></td>
+    </tr>
+    <tr>
+        <td>Bowling Shoes</td>
+        <td>50</td>
+        <td><input type="number" value="0"></td>
+    </tr>
+    </tbody>
+</table>
+<button class="button-order">ORDER</button>
+<div class ="content">
 </div>
 </body>
 </html>
