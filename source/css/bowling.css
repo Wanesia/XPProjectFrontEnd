@@ -41,3 +41,11 @@ table {
 tr {
     height: 40px;
 }
+
+.kidslane {
+    background-color: #157d31;
+}
+
+.bookedduringweek {
+    background-color: #7d1515;
+}
