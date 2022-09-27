@@ -1,5 +1,5 @@
 body {
-    background: #2d2d7f !important;
+    background: #2d2d7f;
 }
 /* main-header start */
 [data-target="#mainMenu"] {
@@ -193,4 +193,96 @@ body {
     }
 
     /*header ends*/
+}
+
+#burger-toggle {
+    position: absolute;
+    appearance: none;
+    opacity: 0;
+}
+#burger-toggle:checked ~ .menu {
+    opacity: 1;
+    visibility: visible;
+}
+#burger-toggle:checked ~ .menu .menu-nav-link span div,
+#burger-toggle:checked ~ .menu img,
+#burger-toggle:checked ~ .menu .title p {
+    transform: translateY(0);
+    transition: 1.2s 0.1s cubic-bezier(0.35, 0, 0.07, 1);
+}
+#burger-toggle:checked ~ .menu .image-link:nth-child(1) img {
+    transition-delay: 0.18s;
+}
+#burger-toggle:checked ~ .menu .image-link:nth-child(2) img {
+    transition-delay: 0.26s;
+}
+#burger-toggle:checked ~ .menu .image-link:nth-child(3) img {
+    transition-delay: 0.34s;
+}
+#burger-toggle:checked ~ .menu .image-link:nth-child(4) img {
+    transition-delay: 0.42s;
+}
+#burger-toggle:checked ~ .burger-menu .line::after {
+    transform: translateX(0);
+}
+#burger-toggle:checked ~ .burger-menu .line:nth-child(1) {
+    transform: translateY(calc(var(--burger-menu-radius) / 5)) rotate(45deg);
+}
+#burger-toggle:checked ~ .burger-menu .line:nth-child(2) {
+    transform: scaleX(0);
+}
+#burger-toggle:checked ~ .burger-menu .line:nth-child(3) {
+    transform: translateY(calc(var(--burger-menu-radius) / -5)) rotate(-45deg);
+}
+
+.burger-menu {
+    --burger-menu-radius: 4em;
+    position: fixed;
+    top: 5vh;
+    left: 5vw;
+    z-index: 100;
+    display: block;
+    width: var(--burger-menu-radius);
+    height: var(--burger-menu-radius);
+    outline: none;
+    cursor: pointer;
+}
+.burger-menu .line {
+    position: absolute;
+    left: 25%;
+    width: 50%;
+    height: 3px;
+    background: ghostwhite;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: 0.5s;
+}
+.burger-menu .line:nth-child(1) {
+    top: 30%;
+}
+.burger-menu .line:nth-child(2) {
+    top: 50%;
+}
+.burger-menu .line:nth-child(3) {
+    top: 70%;
+}
+.burger-menu .line::after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: ghostwhite;
+    transform: translateX(-100%);
+    transition: 0.25s;
+}
+.burger-menu .line:nth-child(2)::after {
+    transition-delay: 0.1s;
+}
+.burger-menu .line:nth-child(3)::after {
+    transition-delay: 0.2s;
+}
+.burger-menu:hover .line::after {
+    transform: translateX(0);
 }
