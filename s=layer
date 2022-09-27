@@ -1,0 +1,59 @@
+1444f047 (bacelarfc    2022-09-26 13:12:56 +0200  1) <!DOCTYPE html>
+1444f047 (bacelarfc    2022-09-26 13:12:56 +0200  2) <html lang="en">
+1444f047 (bacelarfc    2022-09-26 13:12:56 +0200  3) <head>
+1444f047 (bacelarfc    2022-09-26 13:12:56 +0200  4)     <meta charset="UTF-8">
+1444f047 (bacelarfc    2022-09-26 13:12:56 +0200  5)     <title>Main page</title>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200  6)     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+ad958ac7 (bacelarfc    2022-09-26 13:34:18 +0200  7)     <link rel="stylesheet" href="css/styles.css">
+1444f047 (bacelarfc    2022-09-26 13:12:56 +0200  8) <body>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200  9) <input type="checkbox" id="burger-toggle">
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 10) <label for="burger-toggle" class="burger-menu">
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 11)     <div class="line"></div>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 12)     <div class="line"></div>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 13)     <div class="line"></div>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 14) </label>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 15) <div class="menu">
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 16)     <div class="menu-inner">
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 17)         <ul class="menu-nav">
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 18)             <div></div>
+6c608c46 (Anders Strøm 2022-09-27 09:17:26 +0200 19) 
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 20)             </span></a></li>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 21)         </ul>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 22)         <div class="container">
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 23)             <nav class="navbar navbar-expand-lg main-nav px-0">
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 24)                 <a class="navbar-brand" href="/mojo">
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 25)                 </a>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 26)                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 27)                     <span class="icon-bar icon-bar-1"></span>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 28)                     <span class="icon-bar icon-bar-2"></span>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 29)                     <span class="icon-bar icon-bar-3"></span>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 30)                 </button>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 31)                 <div class="collapse navbar-collapse" id="mainMenu">
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 32)                     <ul class="navbar-nav ml-auto text-uppercase f1">
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 33)                         <li>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 34)                             <a href="#home" class="active active-first">home</a>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 35)                         </li>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 36)                         <li>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 37)                             <a href="#about">bowling</a>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 38)                         </li>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 39)                         <li>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 40)                             <a href="#service">air hockey</a>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 41)                         </li>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 42)                         <li>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 43)                             <a href="#project">dining</a>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 44)                         </li>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 45)                         <li>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 46)                             <a href="#project">stocks</a>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 47)                         </li>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 48)                     </ul>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 49)                 </div>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 50)             </nav>
+1444f047 (bacelarfc    2022-09-26 13:12:56 +0200 51)         </div>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 52)     </div>
+6c608c46 (Anders Strøm 2022-09-27 09:17:26 +0200 53) 
+6c608c46 (Anders Strøm 2022-09-27 09:17:26 +0200 54) 
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 55)     <!-- /.container -->
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 56)     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 57)     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 58)     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+3ab24084 (A-Stroem     2022-09-27 09:14:23 +0200 59) </body>
