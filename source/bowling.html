@@ -1,50 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Bowling</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/styles.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="css/bowling.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <!--    <link rel="stylesheet" href="css/main.css">-->
 </head>
+
 <body>
-<div class="container">
-    <nav class="navbar navbar-expand-lg main-nav px-0">
-        <a class="navbar-brand" href="/mojo">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu"
-                aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="icon-bar icon-bar-1"></span>
-            <span class="icon-bar icon-bar-2"></span>
-            <span class="icon-bar icon-bar-3"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="mainMenu">
-            <ul class="navbar-nav ml-auto text-uppercase f1">
-                <li>
-                    <a href="#home">home</a>
-                </li>
-                <li>
-                    <a href="#about" class="active active-first">bowling</a>
-                </li>
-                <li>
-                    <a href="#service">air hockey</a>
-                </li>
-                <li>
-                    <a href="#project">dining</a>
-                </li>
-                <li>
-                    <a href="#project">stocks</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+<div class="layer">
+    <div class="top">
+        <i class="material-icons">menu</i>
+        <ul>
+            <li><a href="#" class="hover-underline-animation">Bowling</a></li>
+            <li><a href="#" class="hover-underline-animation">Air Hockey</a></li>
+            <li><a href="#" class="hover-underline-animation">Dining</a></li>
+            <li><a href="#" class="hover-underline-animation">Stock</a></li>
+        </ul>
+    </div>
 </div>
 <div style="margin: auto; width: 50%; text-align: center">
     <label for="date">Date</label>
     <input type="date" id="date" name="date">
+    <button id="generateTable">Generate Table</button>
 </div>
-<table class = "bowling" border="1" style="width:95%">
+
+<table class = "bowling" id="bookingtable2" border="1" style="width:95%">
+    <thead>
+    <tr>
+        <th>Bowling Lane</th>
+        <th>10:00 - 11:00</th>
+        <th>11:00 - 12:00</th>
+        <th>12:00 - 13:00</th>
+        <th>13:00 - 14:00</th>
+        <th>14:00 - 15:00</th>
+        <th>15:00 - 16:00</th>
+        <th>16:00 - 17:00</th>
+        <th>17:00 - 18:00</th>
+        <th>18:00 - 19:00</th>
+        <th>19:00 - 20:00</th>
+        <th>21: 00 - 22:00</th>
+    </tr>
+    </thead>
+</table>
+<!--
+<table class = "bowling" id="bookingtable" border="1" style="width:95%">
     <thead>
     <tr>
         <th>Bowling Lane</th>
@@ -64,7 +69,10 @@
     <tbody>
     <tr>
         <td>1</td>
-        <td class="bookedduringweek">Booked</td>
+        <td class="bookedduringweek">
+            <form name="f2" action="javascript:select();" >
+            <input id="edit" type="submit" name="edit" value="Edit" />
+            </form>Booked</td>
         <td class="bookedduringweek">Booked</td>
         <td class="bookedduringweek">Booked</td>
         <td class="bookedduringweek">Booked</td>
@@ -385,11 +393,12 @@
         <td></td>
     </tr>
     </tbody>
-</table>
+</table>-->
 <div style="height: 20px">
 
 </div>
 <!-- /.container -->
+<script src="js/bowling-page.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -399,5 +408,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+
 </body>
 </html>
