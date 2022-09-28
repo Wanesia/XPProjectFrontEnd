@@ -19,7 +19,22 @@ function createTable() {
 
     //column that displays the Lane number
     let laneNumber = row.insertCell(cellCount++)
+
+    let closeLaneButton = document.createElement('button')
+        closeLaneButton.textContent = 'Close Lane'
+        closeLaneButton.setAttribute('style','background-color: #157d31')
+        closeLaneButton.addEventListener('click',function bookButtonAction(){
+                console.log('You pressed this button ' + ' ' + cellCount)
+                console.log('lane :'+ rowCount)
+                console.log('hour :'+ (cellCount++ -3))
+                closeLaneButton.innerText = "Lane Closed"
+                closeLaneButton.setAttribute('style','background-color: #7d1515')
+            }
+        )
+
     laneNumber.innerText = rowCount
+    laneNumber.appendChild(closeLaneButton)
+
 
     //Declaring/Creating rows
     let hour10 = row.insertCell(cellCount++)
@@ -40,7 +55,8 @@ function createTable() {
         let bookingButton = document.createElement('button')
         bookingButton.textContent = 'Book now'
         bookingButton.setAttribute('style','background-color: #157d31')
-        bookingButton.addEventListener('click',function bookButtonAction(){
+        bookingButton.addEventListener('click', ()=>{
+            // func(rowCount, cellCount++)
             console.log('You pressed this button ' + ' ' + cellCount)
             console.log('lane :'+ rowCount)
             console.log('hour :'+ (cellCount++ -3))
@@ -68,6 +84,12 @@ function createTable() {
             item.setAttribute('style','background-color: #7d1515')
         }
     }
+
+
+    // function func(row,cell){
+    //     console.log("hello: "+ row + " "+ cell)
+    //
+    // }
 }
 // Mockup function to create all 24 lanes
 function create24Lanes() {
