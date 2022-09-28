@@ -102,6 +102,13 @@ a:hover{
     cursor: pointer;
 }
 
+#startDate, #time
+{
+    margin: 2px;
+    color: black;
+    left: 0%;
+}
+
 p {
     position: relative;
     top: 39%;
@@ -112,10 +119,20 @@ p {
 .date-picker {
     z-index: 1;
     position: absolute;
-    left: 41%;
+    left: 42%;
     top: 17%;
 
 }
+
+.time-picker {
+    z-index: 1;
+    position: absolute;
+    left: 54%;
+    top: 17%;
+
+}
+
+
 
 #modal
 {
