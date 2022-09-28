@@ -30,6 +30,7 @@ function timeOnChange()
 
 function addClicker(table) {
     table.addEventListener("click", function() {
+        saveButton.disabled = true;
         startDate.innerHTML = "Date: " + dateTimeInput.value
         time.innerHTML = "Time: " + timeInput.value
         modal.style.display="block";
@@ -44,4 +45,10 @@ function addClicker(table) {
         })
         closeButton.addEventListener("click", e=> {modal.style.display="none";inputs.forEach(input=>input.value="")})
     })
+}
+
+function enableSaveButton() {
+    inputs.forEach(input => { if (input.value !== "" ) {
+        saveButton.disabled = false;
+    }})
 }
