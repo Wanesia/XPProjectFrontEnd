@@ -88,7 +88,7 @@ async function fetchLanes(url) {
 async function doFetchLanes() {
     let laneArr = await fetchLanes(localLaneApi);
     console.log(laneArr);
-    laneArr.forEach(lane)
+    laneArr.forEach(createTable)
 }
 
 /* function lane(lane) {
