@@ -6,16 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="css/bowling.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/bowlingStyles.css">
     <!--    <link rel="stylesheet" href="css/main.css">-->
 </head>
-
-<body>
-<div class="layer">
+<div class="layer" id="navbar">
     <div class="top">
-        <i class="material-icons">menu</i>
+        <i class="material-icons"></i>
         <ul>
             <li><a href="#" class="hover-underline-animation">Bowling</a></li>
             <li><a href="#" class="hover-underline-animation">Air Hockey</a></li>
@@ -24,378 +23,50 @@
         </ul>
     </div>
 </div>
-<div style="margin: auto; width: 50%; text-align: center">
-    <label for="date">Date</label>
-    <input type="date" id="date" name="date">
-    <button id="generateTable">Generate Table</button>
-</div>
+<body>
+<!--<div class="layer">-->
+<!--    <div class="top">-->
+<!--        <i class="material-icons">menu</i>-->
+<!--        <ul>-->
+<!--            <li><a href="#" class="hover-underline-animation">Bowling</a></li>-->
+<!--            <li><a href="#" class="hover-underline-animation">Air Hockey</a></li>-->
+<!--            <li><a href="#" class="hover-underline-animation">Dining</a></li>-->
+<!--            <li><a href="#" class="hover-underline-animation">Stock</a></li>-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--</div>-->
 
-<table class = "bowling" id="bookingtable2" border="1" style="width:95%">
-    <thead>
-    <tr>
-        <th>Bowling Lane</th>
-        <th>10:00 - 11:00</th>
-        <th>11:00 - 12:00</th>
-        <th>12:00 - 13:00</th>
-        <th>13:00 - 14:00</th>
-        <th>14:00 - 15:00</th>
-        <th>15:00 - 16:00</th>
-        <th>16:00 - 17:00</th>
-        <th>17:00 - 18:00</th>
-        <th>18:00 - 19:00</th>
-        <th>19:00 - 20:00</th>
-        <th>20:00 - 21:00</th>
-        <th>21: 00 - 22:00</th>
-    </tr>
-    </thead>
-</table>
-<!--
-<table class = "bowling" id="bookingtable" border="1" style="width:95%">
-    <thead>
-    <tr>
-        <th>Bowling Lane</th>
-        <th>10:00 - 11:00</th>
-        <th>11:00 - 12:00</th>
-        <th>12:00 - 13:00</th>
-        <th>13:00 - 14:00</th>
-        <th>14:00 - 15:00</th>
-        <th>15:00 - 16:00</th>
-        <th>16:00 - 17:00</th>
-        <th>17:00 - 18:00</th>
-        <th>18:00 - 19:00</th>
-        <th>19:00 - 20:00</th>
-        <th>21: 00 - 22:00</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>1</td>
-        <td class="bookedduringweek">
-            <form name="f2" action="javascript:select();" >
-            <input id="edit" type="submit" name="edit" value="Edit" />
-            </form>Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>2</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>3</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>4</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>5</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>6</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>8</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>9</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>10</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>11</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>12</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>13</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>14</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td class="bookedduringweek">Booked</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>15</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>16</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>17</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>18</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>19</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>20</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr class="kidslane">
-        <td>21</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr class="kidslane">
-        <td>22</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr class="kidslane">
-        <td>23</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    <tr class="kidslane">
-        <td>24</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    </tbody>
-</table>-->
-<div style="height: 20px">
+
+    <div class="datePicker">
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date">
+        <button id="generateTable">Generate Table</button>
+    </div>
+    <br>
+<br>
+
+    <table class="bowling"  id="bookingtable2" border="1">
+        <thead>
+        <tr>
+            <th>Bowling Lane</th>
+            <th>10:00 - 11:00</th>
+            <th>11:00 - 12:00</th>
+            <th>12:00 - 13:00</th>
+            <th>13:00 - 14:00</th>
+            <th>14:00 - 15:00</th>
+            <th>15:00 - 16:00</th>
+            <th>16:00 - 17:00</th>
+            <th>17:00 - 18:00</th>
+            <th>18:00 - 19:00</th>
+            <th>19:00 - 20:00</th>
+            <th>20:00 - 21:00</th>
+            <th>21: 00 - 22:00</th>
+        </tr>
+        </thead>
+    </table>
+
+
+<div class="background">
 
 </div>
 <!-- /.container -->
