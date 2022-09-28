@@ -1,8 +1,11 @@
+const localApi = "http://localhost:8080/api/v1"
+const localLaneApi = "http://localhost:8080/api/v1/bowling-lane"
+const localBowlingBookingApi = "http://localhost:8080/api/v1"
 
 const bookingTable = document.getElementById("bookingtable2")
 const buttCreateTable = document.getElementById("generateTable")//button to create mockup
 
-function createTable() {
+function createTable(lane) {
 
     //Declaring row and column Variables
     let cellCount = 0
@@ -35,7 +38,7 @@ function createTable() {
     let hour20 = row.insertCell(cellCount++)
     let hour21 = row.insertCell(cellCount++)
 
-    //Adds button with eventlisteners
+  /*  //Adds button with eventlisteners
     function addButton(item) {
         let bookingButton = document.createElement('button')
         bookingButton.textContent = 'Book now'
@@ -67,15 +70,30 @@ function createTable() {
 
             item.setAttribute('style','background-color: #7d1515')
         }
-    }
-}
-// Mockup function to create all 24 lanes
-function create24Lanes() {
-
-    for (let i = 0; i <24; i++) {
-        createTable()
-    }
+    } */
 }
 
-buttCreateTable.addEventListener('click', create24Lanes)
+/* Mockup function to create all 24 lanes
+function create24Lanes(lane) {
+
+    for (let i = 0; i < 24; i++) {
+        createTable(lane)
+    }
+} */
+
+async function fetchLanes(url) {
+    return fetch(url).then(response => response.json());
+}
+
+async function doFetchLanes() {
+    let laneArr = await fetchLanes(localLaneApi);
+    console.log(laneArr);
+    laneArr.forEach(lane)
+}
+
+/* function lane(lane) {
+    createTable(lane)
+} */
+
+buttCreateTable.addEventListener('click', doFetchLanes)
 
