@@ -91,10 +91,9 @@ a:hover{
     width: 100px;
     height: 100px;
     background-color: purple;
-    display: inline-block;
-    margin-right: 75px;
+    display: inline-flex;
     margin-left: 55px;
-    margin-top: 50px;
+    margin-top: 10%;
     text-align: center;
     border-radius: 50%;
 }
@@ -107,6 +106,7 @@ p {
     position: relative;
     top: 39%;
     color: white;
+    left: 45%;
 }
 
 .date-picker {
@@ -115,5 +115,10 @@ p {
     left: 41%;
     top: 17%;
 
+}
+
+#modal
+{
+    display: none;
 }
 
