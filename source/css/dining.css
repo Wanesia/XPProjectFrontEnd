@@ -76,3 +76,66 @@ a:hover{
     text-decoration: none;
     color: white;
 }
+
+#canvas {
+    position: absolute;
+    z-index: 1;
+    top: 22%;
+    left: 10%;
+    background-color: rgba(255, 255, 255, 0.4);
+    height: 75%;
+    width: 80%;
+}
+
+.table {
+    width: 100px;
+    height: 100px;
+    background-color: purple;
+    display: inline-flex;
+    margin-left: 55px;
+    margin-top: 10%;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.table:hover {
+    cursor: pointer;
+}
+
+#startDate, #time
+{
+    margin: 2px;
+    color: black;
+    left: 0%;
+}
+
+p {
+    position: relative;
+    top: 39%;
+    color: white;
+    left: 45%;
+}
+
+.date-picker {
+    z-index: 1;
+    position: absolute;
+    left: 42%;
+    top: 17%;
+
+}
+
+.time-picker {
+    z-index: 1;
+    position: absolute;
+    left: 54%;
+    top: 17%;
+
+}
+
+
+
+#modal
+{
+    display: none;
+}
+
