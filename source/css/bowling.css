@@ -81,7 +81,7 @@ tr {
     z-index: 0;
     float: left;
     width: 100%;
-    height: 100vh;
+    height: 155vh;
     overflow: scroll;
     opacity: 0.6;
 }
@@ -103,7 +103,7 @@ tr {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 155%;
     z-index: 1;
 }
 
@@ -160,4 +160,14 @@ a:hover{
     text-decoration: none;
     color: white;
 }
-
+.home-icon {
+    position: absolute;
+    height: 5rem;
+    top:0;
+    left:0;
+}
+.home-link{
+    position:absolute;
+    top:0;
+    left:0;
+}

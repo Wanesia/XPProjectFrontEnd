@@ -22,23 +22,6 @@
 
 }
 
-.button-order
-{
-    position: absolute;
-    top: 75%;
-    left: 72%;
-    z-index: 1;
-    font-size: 2rem;
-}
-.button-back{
-    position: absolute;
-    top: 85%;
-    left: 72%;
-    z-index: 1;
-    font-size: 2rem;
-    padding:0 3.4rem;
-}
-
 button
 {
     background-color: transparent;
@@ -59,7 +42,22 @@ button:hover{
     transition: all 0.3s ease-in-out;
 }
 
-
+.button-order
+{
+    position: absolute;
+    top: 75%;
+    left: 72%;
+    z-index: 1;
+    font-size: 2rem;
+}
+.button-back{
+    position: absolute;
+    top: 85%;
+    left: 72%;
+    z-index: 1;
+    font-size: 2rem;
+    padding:0 3.4rem;
+}
 table, th, tr, td {
     position: relative;
     z-index: 2;
@@ -144,4 +142,16 @@ a{
 a:hover{
     text-decoration: none;
     color: white;
+}
+
+.home-icon {
+    position: absolute;
+    height: 5rem;
+    top:0;
+    left:0;
+}
+.home-link{
+    position:absolute;
+    top:0;
+    left:0;
 }
