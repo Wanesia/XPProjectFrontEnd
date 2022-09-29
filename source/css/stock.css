@@ -28,6 +28,15 @@
     top: 75%;
     left: 72%;
     z-index: 1;
+    font-size: 2rem;
+}
+.button-back{
+    position: absolute;
+    top: 85%;
+    left: 72%;
+    z-index: 1;
+    font-size: 2rem;
+    padding:0 3.4rem;
 }
 
 button
