@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/dining.css">
+
 </head>
 <div class="layer">
     <div class="top">
@@ -13,15 +14,66 @@
         <ul>
             <li><a href="#" class="hover-underline-animation">Bowling</a></li>
             <li><a href="#" class="hover-underline-animation">Air Hockey</a></li>
-            <li><a href="#" class="hover-underline-animation">Dining</a></li>
-            <li><a href="#" class="hover-underline-animation">Stock</a></li>
+            <li><a href="dining.html" class="hover-underline-animation">Dining</a></li>
+            <li><a href="stock.html" class="hover-underline-animation">Stock</a></li>
         </ul>
     </div>
 </div>
+
+<input type="date" onchange="dateOnChange()" class="date-picker">
+<input type="time" onchange="timeOnChange()" class="time-picker">
+
+<div id="canvas">
+    <div class="table" id="Table 1"><p>5</p></div>
+    <div class="table" id="Table 2"><p>5</p></div>
+    <div class="table" id="Table 3"><p>5</p></div>
+    <div class="table" id="Table 4"><p>5</p></div>
+    <div class="table" id="Table 5"><p>5</p></div>
+    <div class="table" id="Table 6"><p>5</p></div>
+    <div class="table" id="Table 7"><p>5</p></div>
+    <div class="table" id="Table 8"><p>5</p></div>
+    <div class="table" id="Table 9"><p>5</p></div>
+    <div class="table" id="Table 10"><p>5</p></div>
+    <div class="table" id="Table 11"><p>5</p></div>
+    <div class="table" id="Table 12"><p>5</p></div>
+    <div class="table" id="Table 13"><p>5</p></div>
+    <div class="table" id="Table 14"><p>5</p></div>
+</div>
+
+
+<div id = "modal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <label>First Name</label>
+                    <input required class="inputs" type="text">
+                    <br>
+                    <label>Last Name</label>
+                    <input required class="inputs" type="text">
+                    <br>
+                    <label>Phone Number</label>
+                    <input required class="inputs" type="tel" pattern="[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}" onchange="enableSaveButton()">
+                    <p id="startDate"></p>
+                    <p id="time"></p>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="saveButton" type="button" class="btn btn-primary">Save changes</button>
+                <button id="closeButton" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <body>
 
 
 <div class ="content">
 </div>
 </body>
+<script src="js/dining.js"></script>
 </html>
