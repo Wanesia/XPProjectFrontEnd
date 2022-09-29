@@ -47,6 +47,8 @@ function createTable() {
         })
         item.appendChild(bookingButton)
     }
+    const hockeyTables = [hour10, hour11, hour12, hour13, hour14, hour15, hour16,hour17, hour18, hour19, hour20,hour21]
+    hockeyTables.forEach(addButton)
 }
 
 // Mockup function to create all 6 lanes
