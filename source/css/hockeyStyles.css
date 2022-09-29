@@ -308,3 +308,14 @@ body {
 .burger-menu:hover .line::after {
     transform: translateX(0);
 }
+.home-icon {
+    position: absolute;
+    height: 5rem;
+    top:0;
+    left:0;
+}
+.home-link{
+    position:absolute;
+    top:0;
+    left:0;
+}
