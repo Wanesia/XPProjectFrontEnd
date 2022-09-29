@@ -164,3 +164,14 @@ a:hover {
     text-decoration: none;
     color: white;
 }
+.home-icon {
+    position: absolute;
+    height: 5rem;
+    top:0;
+    left:0;
+}
+.home-link{
+    position:absolute;
+    top:0;
+    left:0;
+}
