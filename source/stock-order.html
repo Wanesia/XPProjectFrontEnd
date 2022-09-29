@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/stock.css">
 </head>
 <body>
-<div class="layer">
+<div class="layer" id="navbar">
     <div class="top">
         <a class="home-link" href="index.html">
             <img class="home-icon" src="/resources/home.png" alt="Home button">
@@ -20,42 +20,23 @@
         </ul>
     </div>
 </div>
-<table>
+<table id="stock-order">
     <thead>
-    <th>Item</th>
+    <th>Name</th>
     <th>Current Quantity</th>
     <th>Order Quantity</th>
     </thead>
-    <tbody>
-    <tr>
-        <td>Bowling Balls</td>
-        <td>50</td>
-        <td><input type="number" value="0"></td>
-    </tr>
-    <tr>
-        <td>Air Hockey Pucks</td>
-        <td>50</td>
-        <td><input type="number" value="0"></td>
-    </tr>
-    <tr>
-        <td>Bowling Pins</td>
-        <td>50</td>
-        <td><input type="number" value="0"></td>
-    </tr>
-    <tr>
-        <td>Bowling Shoes</td>
-        <td>50</td>
-        <td><input type="number" value="0"></td>
-    </tr>
+    <tbody id="table_body">
+
     </tbody>
 </table>
-
+ backend-connection
 <a class="back-link" href="stock.html">
     <button class="button-back">BACK</button>
-<a class="order-link" href="stock.html">
-    <button class="button-order">ORDER</button>
-
+    <a class="order-link" href="stock.html">
+        <button class="button-order">ORDER</button>
 <div class ="content">
 </div>
+<script src="js/order-stock-page.js"></script>
 </body>
 </html>
