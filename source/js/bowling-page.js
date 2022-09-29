@@ -100,4 +100,3 @@ function create24Lanes() {
 }
 
 buttCreateTable.addEventListener('click', create24Lanes)
-
