@@ -2,7 +2,6 @@ body {
     background: #2d2d7f;
 }
 
-/* main-header start */
 [data-target="#mainMenu"] {
     position: relative;
     z-index: 999;
@@ -98,7 +97,6 @@ body {
     animation: fadeInLeft 0.4s both 0.4s;
 }
 
-/* main-header end */
 @media (max-width: 991px) {
     /*header starts*/
     .collapse.in {
