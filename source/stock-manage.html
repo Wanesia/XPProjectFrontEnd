@@ -8,29 +8,33 @@
     <link rel="stylesheet" href="css/stock.css">
 </head>
 <body>
+
 <div class="layer">
     <div class="top">
-        <i class="material-icons">menu</i>
-        <ul>
-            <li><a href="bowling.html" class="hover-underline-animation">Bowling</a></li>
-            <li><a href="hockey.html" class="hover-underline-animation">Air Hockey</a></li>
-            <li><a href="dining.html" class="hover-underline-animation">Dining</a></li>
-            <li><a href="stock.html" class="hover-underline-animation">Stock</a></li>
-        </ul>
+        <a class="home-link" href="index.html"></a>
+            <img class="home-icon" src="/resources/home.png" alt="Home button">
+            <ul>
+                <li><a href="bowling.html" class="hover-underline-animation">Bowling</a></li>
+                <li><a href="hockey.html" class="hover-underline-animation">Air Hockey</a></li>
+                <li><a href="dining.html" class="hover-underline-animation">Dining</a></li>
+                <li><a href="stock.html" class="hover-underline-animation">Stock</a></li>
+            </ul>
     </div>
 </div>
-<table>
+<table id="stockManageTable">
     <thead>
     <th>Item</th>
     <th>Quantity</th>
     </thead>
+
+    <!--
     <tbody>
     <tr>
-        <td>Bowling Balls</td>
+        <td></td>
         <td><input type="number" value="50"></td>
     </tr>
     <tr>
-        <td>Air Hockey Pucks</td>
+        <td id="hockeyPucks">Air Hockey Pucks</td>
         <td><input type="number" value="50"></td>
     </tr>
     <tr>
@@ -42,12 +46,12 @@
         <td><input type="number" value="50"></td>
     </tr>
     </tbody>
+    -->
+
 </table>
-<a class="back-link" href="stock.html">
-    <button class="button-back">BACK</button>
-    <div class ="content">
-    </div>
-</body>
-</html>
+
+<div class ="content"></div>
+
+<script src="js/stock_manage.js"></script>
 </body>
 </html>
