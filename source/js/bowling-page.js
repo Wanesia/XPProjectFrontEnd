@@ -92,5 +92,4 @@ async function doFetch() {
     bookingArr = await fetchBookings(localBowlingBookingApi);
     laneArr.forEach(createRow);
 }
-
 buttCreateTable.addEventListener('click', doFetch)
