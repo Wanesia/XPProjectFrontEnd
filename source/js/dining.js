@@ -172,3 +172,6 @@ function addClicker(table) {
         }})
     })
 }
+
+//sets date to today's
+document.getElementById('date').valueAsDate = new Date()

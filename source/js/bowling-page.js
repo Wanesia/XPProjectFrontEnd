@@ -93,3 +93,6 @@ async function doFetch() {
     laneArr.forEach(createRow);
 }
 buttCreateTable.addEventListener('click', doFetch)
+
+//sets date to today's
+document.getElementById('date').valueAsDate = new Date();

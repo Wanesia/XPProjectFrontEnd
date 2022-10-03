@@ -90,3 +90,6 @@ async function doFetch() {
 }
 buttCreateTable.addEventListener('click', doFetch)
 
+//sets date to today's
+//idk how to do time stack overflow doesnt work help!!!!!!!!!!!!!
+document.getElementById('date').valueAsDate = new Date();
