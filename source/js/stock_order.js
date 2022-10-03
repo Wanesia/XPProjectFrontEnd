@@ -1,5 +1,7 @@
 const localStockOrderApi = "http://localhost:8080/api/v1/stock";
 
+const stockDropDown = document.getElementById('stock-drop-down')
+
 window.onload = loadIntoTable();
 
 function loadIntoTable() {
@@ -12,6 +14,7 @@ function loadIntoTable() {
         // get a reference to the table
         let stockTable = document.getElementById("stock-order");
         let index = 0;
+
         let tableBody = document.getElementById("table_body")
         data.map(stock => {
             let tr = document.createElement("tr")
@@ -26,6 +29,18 @@ function loadIntoTable() {
     });
 
 }
+
+
+let value = stockDropDown.value
+let text = stockDropDown.options[stockDropDown.selectedIndex].text
+
+function showStocktable() {
+    if (text === "Bowling") {
+
+   }
+}
+
+
 
 
 
