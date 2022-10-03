@@ -35,17 +35,19 @@ let value = stockDropDown.value
 let text = stockDropDown.options[stockDropDown.selectedIndex].text
 
 function showStocktable() {
-    if  (document.getElementById("stock-drop-down").value == "Bowling") {
-
+    if  (document.getElementById("stock-drop-down").value === "Bowling" && json.value.name === "bowling") {
+        loadIntoTable()
     }
 
-    else if (document.getElementById("stock-drop-down").value == "Air Hockey") {
-
+    else if (document.getElementById("stock-drop-down").value === "Air Hockey") {
+        loadIntoTable()
     }
     else {
-
+        loadIntoTable()
     }
 }
+
+stockDropDown.addEventListener('click', showStocktable)
 
 
 
