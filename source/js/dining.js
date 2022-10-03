@@ -17,6 +17,17 @@ console.log(timeInput.value)
 
 dateTimeInput.valueAsDate = new Date();
 
+
+function checkIfFilled()
+{
+    if(document.getElementById("firstName").value !== ""
+        && document.getElementById("lastName").value !== ""
+        && document.getElementById("phoneNumber").value !== "")
+    {
+        createButton.disabled=false;
+    }
+}
+
 async function fetchBookedTables()
 {
     console.log("fetching")
@@ -70,7 +81,7 @@ function dateOnChange()
 
 function timeOnChange()
 {
-    console.log(dateTimeInput.value)
+    console.log(dateTimeInput.value + " " + timeInput.value)
     tables.forEach(table => table.style.backgroundColor="purple")
     timeVal = timeInput.value + ":00"
     if(dateTimeInput.value !== "")
@@ -80,9 +91,37 @@ function timeOnChange()
     }
 }
 
+async function restPostDiningBooking(booking) {
+    const url = "http://localhost:8080/api/v1/dining-booking";
+
+    const fetchOptions = {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: ""
+    }
+
+    const jsonString = JSON.stringify(booking);
+    fetchOptions.body = jsonString;
+
+    //calls backend and wait for return
+    const response = await fetch(url, fetchOptions);
+
+    console.log(response)
+    if (!response.ok) {
+        console.log("fuck you");
+    };
+
+    return response;
+}
+
+
+
+
 function addClicker(table) {
     table.addEventListener("click", function() {
-        //saveButton.disabled = true;
+        createButton.disabled = true;
         startDate.innerHTML = "Date: " + dateTimeInput.value
         time.innerHTML = "Time: " + timeInput.value
         modal.style.display="block";
@@ -90,11 +129,30 @@ function addClicker(table) {
         createButton.addEventListener("click", e => {modal.style.display="none";
             if(table.id == modalTitle.innerHTML && table.style.backgroundColor !== "red")
             {
+
                 table.style.backgroundColor="red";
             }
+            let endDateTime = new Date(dateTimeInput.value + " " + timeInput.value)
+            endDateTime.setHours(endDateTime.getHours() + 3);
+            let booking = {
+                startDateTime: dateTimeInput.value + " " + timeInput.value,
+                endDateTime: dateTimeInput.value + " " + endDateTime.getHours() + ":" + endDateTime.getMinutes(),
+                customer:{
+                    firstName: document.getElementById("firstName").value,
+                    lastName: document.getElementById("lastName").value,
+                    phoneNumber: document.getElementById("phoneNumber").value,
+                },
+                diningTable:{
+                    id: modalTitle.innerHTML,
+                    booked:false},
+            }
+            console.log(booking)
+            //restPostDiningBooking(booking)
             inputs.forEach(input=>input.value="")
-
         })
+        createButton.style.display = "block"
+        cancelButton.style.display = "none"
+        saveButton.style.display = "none"
         closeButton.addEventListener("click", e=> {modal.style.display="none";inputs.forEach(input=>input.value="")})
         customers.forEach(customer => {if(table.id == customer.tableNumber)
         {
@@ -102,12 +160,9 @@ function addClicker(table) {
             document.getElementById("lastName").value = customer.lastName
             document.getElementById("phoneNumber").value = customer.phoneNumber
             document.getElementById("time").innerHTML = "Time: " + customer.timeOfBooking
+            createButton.style.display = "none"
+            cancelButton.style.display = "block"
+            saveButton.style.display = "block"
         }})
     })
-}
-
-function enableSaveButton() {
-    inputs.forEach(input => {if (input.value !== "") {
-        createButton.disabled = false;
-    }})
 }
