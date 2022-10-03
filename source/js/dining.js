@@ -3,6 +3,8 @@ const modal = document.getElementById("modal")
 const modalTitle = document.querySelector(".modal-title")
 const closeButton = document.getElementById("closeButton")
 const saveButton = document.getElementById("saveButton")
+const cancelButton = document.getElementById("cancelButton")
+const createButton = document.getElementById("createButton")
 const inputs = document.querySelectorAll(".inputs")
 const dateTimeInput = document.querySelector(".date-picker")
 const timeInput = document.querySelector(".time-picker")
@@ -42,6 +44,9 @@ async function fetchBookedTables()
                     document.getElementById("phoneNumber").value = customer.phoneNumber
                     document.getElementById("time").innerHTML = "Time: " + customer.timeOfBooking
                     customers.push(customer)
+                    createButton.style.display = "none"
+                    cancelButton.style.display = "block"
+                    saveButton.style.display = "block"
                 }
             }})
         }
@@ -82,7 +87,7 @@ function addClicker(table) {
         time.innerHTML = "Time: " + timeInput.value
         modal.style.display="block";
         modalTitle.innerHTML = table.id;
-        saveButton.addEventListener("click", e => {modal.style.display="none";
+        createButton.addEventListener("click", e => {modal.style.display="none";
             if(table.id == modalTitle.innerHTML && table.style.backgroundColor !== "red")
             {
                 table.style.backgroundColor="red";
@@ -103,6 +108,6 @@ function addClicker(table) {
 
 function enableSaveButton() {
     inputs.forEach(input => {if (input.value !== "") {
-        saveButton.disabled = false;
+        createButton.disabled = false;
     }})
 }

@@ -149,3 +149,12 @@ p {
     top:0;
     left:0;
 }
+
+#cancelButton{
+    display: none;
+}
+
+#saveButton
+{
+    display: none;
+}
