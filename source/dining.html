@@ -51,13 +51,13 @@
             <div class="modal-body">
                 <form method="post">
                     <label>First Name</label>
-                    <input id = "firstName" required="required" class="inputs" type="text">
+                    <input onchange="checkIfFilled()" id = "firstName" required="required" class="inputs" type="text">
                     <br>
                     <label>Last Name</label>
-                    <input id ="lastName" required="required" class="inputs" type="text">
+                    <input onchange="checkIfFilled()" id ="lastName" required="required" class="inputs" type="text">
                     <br>
                     <label>Phone Number</label>
-                    <input id = "phoneNumber" required="required" class="inputs" type="tel">
+                    <input onchange="checkIfFilled()" id = "phoneNumber" required="required" class="inputs" type="tel">
                     <p id="startDate"></p>
                     <p id="time"></p>
             </div>
