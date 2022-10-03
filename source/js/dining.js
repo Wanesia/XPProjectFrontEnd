@@ -82,6 +82,8 @@ function dateOnChange()
 function timeOnChange()
 {
     console.log(dateTimeInput.value + " " + timeInput.value)
+    let endDateTime = new Date(dateTimeInput.value + " " + timeInput.value)
+    endDateTime.setHours(endDateTime.getHours() + 3);
     tables.forEach(table => table.style.backgroundColor="purple")
     timeVal = timeInput.value + ":00"
     if(dateTimeInput.value !== "")
@@ -89,6 +91,10 @@ function timeOnChange()
         tables.forEach(addClicker)
         fetchBookedTables()
     }
+}
+
+function padTo2Digits(num) {
+    return String(num).padStart(2, '0');
 }
 
 async function restPostDiningBooking(booking) {
@@ -136,18 +142,18 @@ function addClicker(table) {
             endDateTime.setHours(endDateTime.getHours() + 3);
             let booking = {
                 startDateTime: dateTimeInput.value + " " + timeInput.value,
-                endDateTime: dateTimeInput.value + " " + endDateTime.getHours() + ":" + endDateTime.getMinutes(),
+                endDateTime: dateTimeInput.value + " " + padTo2Digits(endDateTime.getHours()) + ":" + padTo2Digits(endDateTime.getMinutes()),
                 customer:{
                     firstName: document.getElementById("firstName").value,
                     lastName: document.getElementById("lastName").value,
                     phoneNumber: document.getElementById("phoneNumber").value,
                 },
                 diningTable:{
-                    id: modalTitle.innerHTML,
+                    id: modalTitle.innerHTML.replace("Table ", ""),
                     booked:false},
             }
             console.log(booking)
-            //restPostDiningBooking(booking)
+            restPostDiningBooking(booking)
             inputs.forEach(input=>input.value="")
         })
         createButton.style.display = "block"
