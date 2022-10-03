@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/stock.css">
 </head>
-<body>
+<body onload="loadIntoTable()">
 <div class="layer" id="navbar">
     <div class="top">
         <a class="home-link" href="index.html">
@@ -23,14 +23,15 @@
 </div>
 <table id="stock-order">
     <thead>
+    <th>Id</th>
     <th>Name</th>
     <th>Current Quantity</th>
     <th>Order Quantity</th>
+    <th>Order</th>
     </thead>
     <tbody id="table_body">
     </tbody>
 </table>
- backend-connection
 <a class="back-link" href="stock.html">
     <button class="button-back">BACK</button>
     <a class="order-link" href="stock.html">
