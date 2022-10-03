@@ -33,4 +33,4 @@ async function doFetchStock() {
     stockArray.forEach(createTable)
 }
 
-document.addEventListener('keydown', doFetchStock)
+//document.addEventListener('keydown', doFetchStock)
