@@ -13,6 +13,8 @@ const customers=[]
 
 console.log(timeInput.value)
 
+dateTimeInput.valueAsDate = new Date();
+
 async function fetchBookedTables()
 {
     console.log("fetching")
