@@ -111,9 +111,9 @@ a:hover{
 
 p {
     position: relative;
-    top: 39%;
+    top: 27%;
     color: white;
-    left: 45%;
+    left: 2%;
 }
 
 .date-picker {
@@ -148,4 +148,13 @@ p {
     position:absolute;
     top:0;
     left:0;
+}
+
+#cancelButton{
+    display: none;
+}
+
+#saveButton
+{
+    display: none;
 }
