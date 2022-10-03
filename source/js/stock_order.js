@@ -35,9 +35,16 @@ let value = stockDropDown.value
 let text = stockDropDown.options[stockDropDown.selectedIndex].text
 
 function showStocktable() {
-    if (text === "Bowling") {
+    if  (document.getElementById("stock-drop-down").value == "Bowling") {
 
-   }
+    }
+
+    else if (document.getElementById("stock-drop-down").value == "Air Hockey") {
+
+    }
+    else {
+
+    }
 }
 
 
