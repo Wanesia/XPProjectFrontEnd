@@ -514,3 +514,28 @@ a:hover {
     margin-top: 13%;
     width: 85%;
 }
+
+#modal
+{
+    display: none;
+}
+.home-icon {
+    position: absolute;
+    height: 5rem;
+    top:0;
+    left:0;
+}
+.home-link{
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+#cancelButton{
+    display: none;
+}
+
+#saveButton
+{
+    display: none;
+}
