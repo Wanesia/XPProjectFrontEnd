@@ -170,3 +170,54 @@ a:hover{
     top:0;
     left:0;
 }
+
+.dropbtn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+
+.dropdown {
+    /*position: relative;*/
+    /*display: inline-block;*/
+    left: 40%;
+    top: 22vh;
+    width: 30%;
+    td: 5%;
+    z-index: 2;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 3;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    z-index: 1000;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: inline-block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+#stock-drop-down {
+    position: relative;
+    z-index: 2;
+    border: 2px solid black;
+    padding:1rem;
+    left: 37%;
+    top: 22vh;
+
+}
