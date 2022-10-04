@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Manage Stock</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/stock.css">
+    <script src="../../../Library/Application Support/JetBrains/IntelliJIdea2021.3/javascript/extLibs/http_ajax.googleapis.com_ajax_libs_jquery_2.1.1_jquery.js"></script>
 </head>
 <body onload="doFetchStock();">
 
@@ -14,14 +16,22 @@
         <a class="home-link" href="index.html">
             <img class="home-icon" src="/resources/home.png" alt="Home button">
         </a>
-            <ul>
-                <li><a href="bowling.html" class="hover-underline-animation">Bowling</a></li>
-                <li><a href="hockey.html" class="hover-underline-animation">Air Hockey</a></li>
-                <li><a href="dining.html" class="hover-underline-animation">Dining</a></li>
-                <li><a href="stock.html" class="hover-underline-animation">Stock</a></li>
-            </ul>
+        <ul>
+            <li><a href="bowling.html" class="hover-underline-animation">Bowling</a></li>
+            <li><a href="hockey.html" class="hover-underline-animation">Air Hockey</a></li>
+            <li><a href="dining.html" class="hover-underline-animation">Dining</a></li>
+            <li><a href="stock.html" class="hover-underline-animation">Stock</a></li>
+        </ul>
     </div>
 </div>
+
+<label for="stock-drop-down">Choose Stock</label>
+<select name="stock-drop-down" id="stock-drop-down" autocomplete="off">
+    <option value="All" selected>All</option>
+    <option value="Bowling" >Bowling</option>
+    <option value="Hockey">Air Hockey</option>
+    <option value="Dining">Dining</option>
+</select>
 <table id="stockManageTable" class="stockManageTable">
     <thead>
     <th>Item</th>
@@ -29,8 +39,11 @@
     </thead>
 </table>
 
-<div class ="content"></div>
+
+<div class="content"></div>
 
 <script src="js/stock_manage.js"></script>
+<script        src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"
+></script>
 </body>
 </html>
