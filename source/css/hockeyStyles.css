@@ -495,3 +495,22 @@ a:hover {
     top:0;
     left:0;
 }
+.hsearchbar {
+    padding-left: 40%;
+    z-index: 1;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+    width: 85%;
+}
+
+.calendarbutton {
+    padding-left: 40%;
+    z-index: 1;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 13%;
+    width: 85%;
+}
