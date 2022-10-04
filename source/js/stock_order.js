@@ -1,5 +1,8 @@
 const localStockOrderApi = "http://localhost:8080/api/v1/stock";
 
+
+let textOption = stockDropDown.options[stockDropDown.selectedIndex].text;
+
 const stockDropDown = document.getElementById('stock-drop-down')
 stockDropDown.length = 0;
 let defaultOption = document.createElement('Option')
@@ -8,7 +11,7 @@ defaultOption.text = 'Select Stock'
 stockDropDown.add(defaultOption)
 stockDropDown.selectedIndex = 0;
 
-fetch(localStockOrderApi)
+ fetch(localStockOrderApi)
     .then(
         function(response) {
             if (response.status !== 200) {
@@ -32,6 +35,7 @@ fetch(localStockOrderApi)
     .catch(function(err) {
         console.error('Fetch Error -', err)
     });
+
 
 window.onload = loadIntoTable();
 
