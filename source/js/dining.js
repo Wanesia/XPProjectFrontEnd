@@ -122,11 +122,9 @@ async function restPostDiningBooking(booking) {
     return response;
 }
 
-
-
-
 function addClicker(table) {
-    table.addEventListener("click", function() {
+    function func() {
+        inputs.forEach(input=>input.value="")
         createButton.disabled = true;
         startDate.innerHTML = "Date: " + dateTimeInput.value
         time.innerHTML = "Time: " + timeInput.value
@@ -153,7 +151,10 @@ function addClicker(table) {
                     booked:false},
             }
             console.log(booking)
-            restPostDiningBooking(booking)
+            if(booking.customer.firstName != "")
+            {
+                restPostDiningBooking(booking)
+            }
             inputs.forEach(input=>input.value="")
         })
         createButton.style.display = "block"
@@ -170,7 +171,15 @@ function addClicker(table) {
             cancelButton.style.display = "block"
             saveButton.style.display = "block"
         }})
-    })
+    }
+    if(timeInput.value <= "21:00")
+    {
+        table.addEventListener("click",func)
+    }
+    else if(timeInput.value > "21:00")
+    {
+        table.replaceWith(table.cloneNode(true))
+    }
 }
 
 //sets date to today's
