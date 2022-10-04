@@ -22,7 +22,13 @@
 
 }
 
-button
+.stockTableElement{
+    width: 40%;
+    margin: 5px;
+    padding: 5px 5px;
+}
+
+.stockPageButton
 {
     background-color: transparent;
     border-radius: 5px;
@@ -35,6 +41,7 @@ button
     margin-left: 7vw;
     padding: 0 2.5rem;
 }
+
 button:hover{
     color: black;
     text-shadow: none;
@@ -57,14 +64,6 @@ button:hover{
     z-index: 1;
     font-size: 2rem;
     padding:0 3.4rem;
-
-}
-
-.button-to-order {
-    position: absolute;
-    z-index: 1;
-    font-size: 0.5rem;
-
 }
 table, th, tr, td {
     position: relative;
@@ -73,7 +72,7 @@ table, th, tr, td {
     padding:1rem;
 }
 td:last-child{
-    width:35%;
+    width:50%;
 }
 
 input {
@@ -86,6 +85,14 @@ table {
     top: 22vh;
 
     width: 50%;
+}
+
+.stockManageTable {
+    background-color: white;
+    left: 30%;
+    top: 22vh;
+    width: 30%;
+    td: 5%
 }
 
 .layer {
