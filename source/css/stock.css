@@ -155,3 +155,13 @@ a:hover{
     top:0;
     left:0;
 }
+
+#stock-drop-down {
+    position: relative;
+    z-index: 2;
+    border: 2px solid black;
+    padding:1rem;
+    left: 25%;
+    top: 22vh;
+
+}
