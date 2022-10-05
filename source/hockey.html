@@ -25,13 +25,13 @@
 </div>
 <body>
 <div class="datePicker">
-    <label for="date">Date</label>
+    <label for="date" id="datePickerLabel">Current Date</label>
     <input type="date" id="date" name="date">
-    <button id="generateTable">Generate Table</button>
+    <button id="generateTable" class="btn btn-generate">Generate Table</button>
 </div>
 <br>
 <br>
-<table class="hockey" id="bookingtable3" border="1">
+<table class="hockey table-dark" id="bookingtable3">
     <thead>
     <tr>
         <th>Hockey tables</th>
@@ -49,34 +49,34 @@
         <th>21:00 - 22:00</th>
     </tr>
     </thead>
+    <tbody id="tableBody">
+
+    </tbody>
 </table>
 
-<div id="modal" class="modal" tabindex="-1" role="dialog">
+<div id="modal" class="modal" tabindex="-1" role="dialog" style="display: none">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
+                <h5 id ="modalTitle" class="modal-title">Modal title</h5>
             </div>
             <div class="modal-body">
                 <form method="post">
-                    <label for="id">Table</label>
-                    <input onchange="checkIfFilled()" id="id" required="required" class="inputs" type="text">
-                    <br>
                     <label for="startDateTime">Booking starts at:</label>
                     <input onchange="checkIfFilled()" id="startDateTime" required="required" class="inputs" type="datetime-local">
                     <br>
                     <label for="endDateTime">Booking ends at:</label>
                     <input onchange="checkIfFilled()" id="endDateTime" required="required" class="inputs" type="datetime-local">
                     <br>
-                    <label for="customer">Customer name</label>
-                    <input onchange="checkIfFilled()" id="customer" required="required" class="inputs" type="text">
-                    <label for="telephone">Customer telephone</label>
-                    <input onchange="checkIfFilled()" id="telephone" required="required" class="inputs" type="tel">
+                    <label for="customerName">Customer name</label>
+                    <input onchange="checkIfFilled()" id="customerName" required="required" class="inputs" type="text">
+                    <label for="customerTelephone">Customer telephone</label>
+                    <input onchange="checkIfFilled()" id="customerTelephone" required="required" class="inputs" type="tel">
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="createButton" type="submit" class="btn btn-primary">Create Booking</button>
-                <button id="saveButton" type="submit" class="btn btn-primary">Save Booking</button>
+                <button id="bookButton" type="submit" class="btn btn-primary">Create Booking</button>
+                <button id="confirmChangesButton" type="submit" class="btn btn-primary">Save Booking</button>
                 <button id="cancelButton" type="button" class="btn btn-danger">Cancel Booking</button>
                 <button id="closeButton" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>

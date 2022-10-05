@@ -171,6 +171,12 @@ a:hover{
     top:0;
     left:0;
 }
+
+/*
+You've overwritten the bootstrap default button.
+Any future usages of bootstrap buttons will take this style.
+Highly recommended to use a different name unless you want to make bootstrap pointless.
+*/
 .btn {
     color:aqua;
     background: black;
