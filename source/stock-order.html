@@ -21,6 +21,13 @@
         </ul>
     </div>
 </div>
+<label for="stock-drop-down">Choose Stock</label>
+<select name="stock-drop-down" id="stock-drop-down" autocomplete="off" onChange="showByCategory()">
+    <option value="All" selected>All</option>
+    <option value="Bowling" >Bowling</option>
+    <option value="Hockey">Air Hockey</option>
+    <option value="Dining">Dining</option>
+</select>
 <table id="stock-order">
     <thead>
     <th>Id</th>
@@ -32,12 +39,10 @@
     <tbody id="table_body">
     </tbody>
 </table>
-<a class="back-link" href="stock.html">
-    <button class="button-back">BACK</button>
-    <a class="order-link" href="stock.html">
-        <button class="button-order">ORDER</button>
 <div class ="content">
 </div>
+
 <script src="js/stock_order.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </body>
 </html>
