@@ -14,8 +14,6 @@ const bookedTablesURL = "http://localhost:8080/api/v1/dining-booking"
 const customers=[]
 let bookings
 
-console.log(timeInput.value)
-
 dateTimeInput.valueAsDate = new Date();
 
 function checkIfFilled()
@@ -30,7 +28,6 @@ function checkIfFilled()
 
 async function fetchBookedTables()
 {
-    console.log("fetching")
     bookings = await fetchBooking(bookedTablesURL)
     bookings.forEach(booking =>{
         const date = booking.startDateTime.split(" ");
@@ -38,7 +35,6 @@ async function fetchBookedTables()
         if(date[0] === dateTimeInput.value && date[1] <= timeVal && timeVal < endDate[1])
         {
             booking.diningTable.id = "Table " + booking.diningTable.id
-            console.log(booking.diningTable.id)
             tables.forEach(table => {if(table.id === booking.diningTable.id){
                 if(table.style.backgroundColor !== "#f00511")
                 {
@@ -72,7 +68,6 @@ function fetchBooking(url) {
 
 function dateOnChange()
 {
-    console.log(timeInput.value)
     tables.forEach(table => table.style.backgroundColor="#704F32")
     if(timeInput.value !== "")
     {
@@ -83,7 +78,6 @@ function dateOnChange()
 
 function timeOnChange()
 {
-    console.log(dateTimeInput.value + " " + timeInput.value)
     let endDateTime = new Date(dateTimeInput.value + " " + timeInput.value)
     endDateTime.setHours(endDateTime.getHours() + 3);
     tables.forEach(table => table.style.backgroundColor="#704F32")
@@ -140,12 +134,8 @@ async function restPutDiningBooking(booking) {
 
     //calls backend and wait for return
     const response = await fetch(url, fetchOptions).then(fetchBookedTables);
-    response
     timeOnChange()
-    if (!response.ok) {
-        console.log("Fix bugs");
-    };
-
+    console.log(response)
     return response;
 }
 
@@ -181,6 +171,36 @@ function addClicker(table) {
         time.innerHTML = "Time: " + timeInput.value
         modal.style.display="block";
         modalTitle.innerHTML = table.id;
+        saveButton.addEventListener("click", e=>{
+            let endDateTime = new Date(document.getElementById("newDate").value + " " + document.getElementById("newTime").value)
+            endDateTime.setHours(endDateTime.getHours() + 1);
+            let bookingId;
+            bookings.forEach(bookingFetched => {
+                if(bookingFetched.startDateTime == dateTimeInput.value + " " + timeInput.value
+                    && bookingFetched.diningTable.id == modalTitle.innerHTML){
+                    bookingId = bookingFetched.id;
+                }})
+            let booking = {
+                id: bookingId,
+                startDateTime: document.getElementById("newDate").value + " " + document.getElementById("newTime").value,
+                endDateTime: document.getElementById("newDate").value + " " + padTo2Digits(endDateTime.getHours()) + ":" + padTo2Digits(endDateTime.getMinutes()),
+                customer:{
+                    firstName: document.getElementById("firstName").value,
+                    lastName: document.getElementById("lastName").value,
+                    phoneNumber: document.getElementById("phoneNumber").value,
+                },
+                diningTable:{
+                    id: modalTitle.innerHTML.replace("Table ", ""),
+                    booked:false},
+            }
+            if(booking.customer.firstName != "" && booking.customer.lastName != "" && booking.customer.phoneNumber != "") {
+                restPutDiningBooking(booking)
+            }
+            console.log(booking)
+            inputs.forEach(input=>input.value="")
+            modal.style.display = "none";
+            alert()
+        })
         cancelButton.addEventListener("click", async e=> {
             if(table.id == modalTitle.innerHTML && table.style.backgroundColor === "#f00511") {
                 table.style.backgroundColor = "#704F32"
@@ -189,12 +209,9 @@ function addClicker(table) {
             endDateTime.setHours(endDateTime.getHours() + 1);
             let bookingId;
             bookings.forEach(bookingFetched => {
-                console.log(bookingFetched.startDateTime == dateTimeInput.value + " " + timeInput.value)
-                console.log(bookingFetched.diningTable.id == modalTitle.innerHTML)
                 if(bookingFetched.startDateTime == dateTimeInput.value + " " + timeInput.value
                     && bookingFetched.diningTable.id == modalTitle.innerHTML){
                    bookingId = bookingFetched.id;
-                    console.log(bookingId)
                 }})
             let booking = {
                 id: bookingId,
@@ -237,7 +254,6 @@ function addClicker(table) {
                     id: modalTitle.innerHTML.replace("Table ", ""),
                     booked:false},
             }
-            console.log(booking)
             if(booking.customer.firstName != "" && booking.customer.lastName != "" && booking.customer.phoneNumber != "")
             {
                 restPostDiningBooking(booking)
@@ -251,7 +267,6 @@ function addClicker(table) {
                 "endTimeOfBooking": padTo2Digits(endDateTime.getHours()) + ":" + padTo2Digits(endDateTime.getMinutes()),
                 "dateOfBooking": dateTimeInput.value
             }
-            console.log(customer)
             customers.push(customer)
             inputs.forEach(input=>input.value="")
         })
@@ -268,6 +283,9 @@ function addClicker(table) {
             createButton.style.display = "none"
             cancelButton.style.display = "block"
             saveButton.style.display = "block"
+            document.querySelectorAll(".hidden-input").forEach(input => input.style.display = "block")
+            document.getElementById("startDate").style.display = "none"
+            document.getElementById("time").style.display = "none"
         }})
     }
     if(timeInput.value <= "21:00")
