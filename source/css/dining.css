@@ -154,7 +154,27 @@ p {
     display: none;
 }
 
-#saveButton
-{
+#saveButton {
     display: none;
+}
+
+.hidden-input
+{
+    position: absolute;
+    color: black;
+    display: none;
+    left: 2.8%
+}
+#startDate
+{
+    position: absolute;
+    top: 50%;
+    left: 2.8%;
+}
+
+#time
+{
+    position: absolute;
+    top: 60%;
+    left: 2.8%;
 }
