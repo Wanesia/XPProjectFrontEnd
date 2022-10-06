@@ -61,17 +61,24 @@
                 <h5 id ="modalTitle" class="modal-title">Modal title</h5>
             </div>
             <div class="modal-body">
-                <form method="post">
-                    <label for="startDateTime">Booking starts at:</label>
-                    <input onchange="checkIfFilled()" id="startDateTime" required="required" class="inputs" type="datetime-local">
-                    <br>
-                    <label for="endDateTime">Booking ends at:</label>
-                    <input onchange="checkIfFilled()" id="endDateTime" required="required" class="inputs" type="datetime-local">
-                    <br>
-                    <label for="customerName">Customer name</label>
-                    <input onchange="checkIfFilled()" id="customerName" required="required" class="inputs" type="text">
-                    <label for="customerTelephone">Customer telephone</label>
-                    <input onchange="checkIfFilled()" id="customerTelephone" required="required" class="inputs" type="tel">
+                <form id="modalBodyForm" method="post">
+                    <div class="form-section">
+                        <label class="modal-label" for="startDateTime">Booking Starts At:</label>
+                        <input id="startDateTime" required="required" class="inputs" type="datetime-local">
+                        <br>
+                        <label class="modal-label" for="endDateTime">Booking Ends At:</label>
+                        <input id="endDateTime" required="required" class="inputs" type="datetime-local">
+                    </div>
+                    <div class="form-section">
+                        <label class="modal-label" for="customerFirstName">Customer First Name</label>
+                        <input id="customerFirstName" class="inputs" type="text">
+                        <br>
+                        <label class="modal-label" for="customerLastName">Customer Last Name</label>
+                        <input id="customerLastName" class="inputs" type="text">
+                        <br>
+                        <label class="modal-label" for="customerTelephone">Customer telephone</label>
+                        <input id="customerTelephone" class="inputs" type="tel">
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">

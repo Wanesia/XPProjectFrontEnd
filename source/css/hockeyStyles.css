@@ -542,11 +542,21 @@ a:hover {
     left:0;
 }
 
-#cancelButton{
+#modalBodyForm {
+    display: flex;
+}
+
+.form-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+}
+
+#cancelButton {
     display: none;
 }
 
-#saveButton
-{
+#bookButton {
     display: none;
 }

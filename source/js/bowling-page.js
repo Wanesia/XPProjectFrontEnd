@@ -45,7 +45,7 @@ function addButton(cell, bookingArr, rowCount) {
                 "\nsd: " + selectedStartDateTime,
                 "\nsdp: " + selectedEndDateTime);
 
-            if (bookingStartDateTime <= selectedStartDateTime && bookingEndDateTime >= selectedEndDateTime) {
+            if (bookingStartDateTime < selectedEndDateTime && bookingEndDateTime > selectedStartDateTime) {
                 bookingButton.innerText = "Booked";
                 bookingButton.setAttribute('style','background-color: #7d1515');
                 bookingButton.addEventListener('dblclick', function bookButtonAction(){
