@@ -172,18 +172,66 @@ a:hover{
     left:0;
 }
 
+.interactive-cell:hover {
+    background-color: #343a40 !important;
+    color: white !important;
+}
+
+.interactive-cell.cellBooked {
+    background-color: #f25459;
+    text-align: center;
+}
+
+.interactive-cell.cellFree {
+    background-color: #8be78b;
+    text-align: center;
+    color: black;
+}
+
+.interactive-cell.cellFree.kid {
+    background-color: yellow;
+    text-align: center;
+    color: black;
+}
+
+#datePickerLabel {
+    font-size: 1.25rem;
+    color: #fff;
+}
+
+.datePicker {
+    padding-left: 40%;
+    z-index: 1;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+    width: 85%;
+
+}
+
+.btn-generate {
+    color: white;
+    background: #343a40;
+    border-radius: 60px;
+    border: 1px solid white;
+    margin-left: 0.25rem;
+}
+
 /*
 You've overwritten the bootstrap default button.
 Any future usages of bootstrap buttons will take this style.
 Highly recommended to use a different name unless you want to make bootstrap pointless.
 */
-.btn {
+/*.btn {
     color:aqua;
     background: black;
     border-radius: 60px;
     border: 1px solid white;
     margin-left: 0.25rem;
 }
+
+
 .btn-search {
     position: absolute;
     right: 5%;
@@ -193,5 +241,5 @@ Highly recommended to use a different name unless you want to make bootstrap poi
     background-color:white;
     border: 1px solid black;
     text-shadow: 0.25px 0.25px black;
-
 }
+ */

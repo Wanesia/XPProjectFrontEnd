@@ -27,14 +27,14 @@
         </div>
     </div>
     <div class="datePicker">
-        <label for="date">Date</label>
+        <label for="date" id="datePickerLabel">Current Date</label>
         <input type="date" id="date" name="date">
         <button id="generateTable" class="btn btn-generate">Generate Table</button>
-        <a href="search.html"><button class="btn btn-search">Search</button></a>
+        <a href="search.html"><button class="btn btn-generate">Search</button></a>
     </div>
     <br>
     <br>
-    <table class="bowling"  id="bookingtable2" border="1">
+    <table class="bowling table-dark" id="bookingtable2">
         <thead>
         <tr>
             <th>Bowling Lane</th>
@@ -53,6 +53,43 @@
         </tr>
         </thead>
     </table>
+
+    <div id="modal" class="modal" tabindex="-1" role="dialog" style="display: none">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id ="modalTitle" class="modal-title">Modal title</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="modalBodyForm" method="post">
+                        <div class="form-section">
+                            <label class="modal-label" for="startDateTime">Booking Starts At:</label>
+                            <input id="startDateTime" required="required" class="inputs" type="datetime-local">
+                            <br>
+                            <label class="modal-label" for="endDateTime">Booking Ends At:</label>
+                            <input id="endDateTime" required="required" class="inputs" type="datetime-local">
+                        </div>
+                        <div class="form-section">
+                            <label class="modal-label" for="customerFirstName">Customer First Name</label>
+                            <input id="customerFirstName" class="inputs" type="text">
+                            <br>
+                            <label class="modal-label" for="customerLastName">Customer Last Name</label>
+                            <input id="customerLastName" class="inputs" type="text">
+                            <br>
+                            <label class="modal-label" for="customerTelephone">Customer telephone</label>
+                            <input id="customerTelephone" class="inputs" type="tel">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button id="bookButton" type="submit" class="btn btn-primary">Create Booking</button>
+                    <button id="confirmChangesButton" type="submit" class="btn btn-primary">Save Booking</button>
+                    <button id="cancelButton" type="button" class="btn btn-danger">Cancel Booking</button>
+                    <button id="closeButton" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 <div class="background">

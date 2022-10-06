@@ -12,24 +12,157 @@ let datePicker = document.getElementById("date");
 let laneArr = [];
 let bookingArr = [];
 
-function createBowlingLaneCountColumn(row, rowcount) {
+function createBowlingLaneCountColumn(row, rowCount) {
     // Generate the first cell, used for the row number
     let laneNumber = row.insertCell();
     // Establish first cell text as the bowling lane number
-    laneNumber.innerText = rowcount;
+    laneNumber.innerText = rowCount;
 }
 
-// Adds button with eventListeners
-// Needs documentation, but it's 2 AM so not now
-function addButton(cell, bookingArr, rowCount) {
-    let bookingButton = document.createElement('button');
-    bookingButton.innerText = "Book now";
-    bookingButton.setAttribute('style','background-color: #157d31');
-    bookingButton.addEventListener('click',function bookButtonAction() {
-        bookingButton.innerText = "Booked";
-        bookingButton.setAttribute('style', 'background-color: #7d1515');
+/**
+ * Takes care of the logic behind the pop-up window that appears when clicking a cell.
+ * @param cell HTML element representing the cell that has been selected
+ * @param rowCount Integer representing the row where the cell resides
+ * @param isBooked Boolean that is passed for conditional logic for a booked vs. a free cell.
+ * @param booking Optional object that represents the booking itself, if any.
+ */
+function handleModal(cell, rowCount, isBooked, booking) {
+    // Handle modal logic
+    cell.addEventListener('click', () => {
+        // If the modal is being displayed, hide it and stop the rest of the function from executing
+        if (!(modal.style.display === "none")) {
+            modal.style.display = "none";
+            return;
+        }
+        // If the modal is not being displayed, display it
+        modal.style.display = "block";
+        modalTitle.innerText = "Hockey Table " + rowCount;
+
+        // If the selected cell corresponds to a booking
+        if (isBooked) {
+            // Set datetime input fields values to booking values
+            startDateTime.value = booking.startDateTime;
+            endDateTime.value = booking.endDateTime;
+            // If there is a customer, set input field values to customer particulars
+            if (booking['customer']['id'] !== null) {
+                customerFirstName.value = booking['customer']['firstName'];
+                customerLastName.value = booking['customer']['lastName'];
+                customerTelephone.value = booking['customer']['phoneNumber'];
+            }
+            // Show buttons for PUT and DELETE, hide POST
+            bookButton.setAttribute("style", "display: none");
+            confirmChangesButton.setAttribute("style", "display: block");
+            cancelButton.setAttribute("style", "display: block");
+
+            // If the selected cell does not correspond to a booking
+        } else {
+            // Empty customer input fields from potential previous values
+            customerFirstName.value = "";
+            customerLastName.value = "";
+            customerTelephone.value = "";
+            // Store two variables with date objects from datePicker
+            let selectedStartDateTime = new Date(datePicker.value);
+            let selectedEndDateTime = new Date(datePicker.value);
+
+            /*
+            FIX NEEDED
+            */
+            // Assign hours to dates, adding 2 hours because javascript, weird conversion from GMT+2 to UTC
+            selectedStartDateTime.setHours(cell.timeSlot + 2);
+            selectedEndDateTime.setHours(cell.timeSlot + 3);
+
+            // ValueAsDate does not appear to work on Chrome, will have to find a workaround
+            startDateTime.valueAsDate = selectedStartDateTime;
+            endDateTime.valueAsDate = selectedEndDateTime;
+            /*
+            FIX NEEDED
+            */
+
+            // Show button for POST and hide buttons for PUT and DELETE
+            bookButton.setAttribute("style", "display: block");
+            confirmChangesButton.setAttribute("style", "display: none");
+            cancelButton.setAttribute("style", "display: none");
+
+            // Prepare POST method on bookButton
+            bookButton.addEventListener('click', async function() {
+                const fetchOptions = {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/json"
+                    },
+                    body: ""
+                }
+
+                const newBooking = {
+                    "startDateTime": startDateTime.value
+                        .replace('T', ' ') + ":00",
+                    "endDateTime": endDateTime.value
+                        .replace('T', ' ') + ":00",
+                    "customer": {
+                        "firstName": customerFirstName.value,
+                        "lastName": customerLastName.value,
+                        "phoneNumber": customerTelephone.value,
+                    },
+                    "hockeyTable": {
+                        "id": rowCount,
+                        "booked": false,
+                        "inOrder": true
+                    }
+                }
+
+                fetchOptions.body = JSON.stringify(newBooking);
+                const response = await fetch(localHockeyBookingApi, fetchOptions);
+                // Refresh page on reload
+                if (response.ok) {
+                    document.location.reload();
+
+                    /*
+                    FIX NEEDED
+                    */
+                    datePicker.value = startDateTime.value;
+                    /*
+                    FIX NEEDED
+                    */
+                }
+                return response;
+            });
+
+        }
     });
+    // Close window on button click
+    closeButton.addEventListener('click', () => {modal.style.display = "none"});
+}
+
+/**
+ * Determines whether a cell is booked or not at table generation.
+ * Taken advantage of to also add modal pop-up on click event to each one of them
+ * @param cell
+ * @param bookingArr
+ * @param rowCount
+ */
+function loadIndividualCell(cell, bookingArr, rowCount) {
+
+    cell.classList.add("interactive-cell");
+
+    function establishCellState(isFree, booking) {
+        if (!isFree) {
+            cell.innerText = "Booked";
+            cell.classList.add("cellBooked");
+            handleModal(cell, rowCount, true, booking);
+            return;
+        }
+        cell.innerText = "Free";
+        cell.classList.add("cellFree");
+        handleModal(cell, rowCount, false, null);
+
+        // Differentiate regular lanes from lanes reserved for children as per customer requirements
+        if (rowCount > 20) {
+            cell.classList.add("kid");
+        }
+    }
+
     // forEach won't work here because it does not support break
+    let booked = false;
     for (let booking of bookingArr) {
         if (booking['bowlingLane']['id'] === rowCount) {
             let bookingStartDateTime = new Date(Date.parse(booking['startDateTime']));
@@ -39,25 +172,14 @@ function addButton(cell, bookingArr, rowCount) {
             selectedStartDateTime.setHours(cell.timeSlot);
             selectedEndDateTime.setHours(cell.timeSlot + 1);
 
-            console.log(
-                "\nbs: " + bookingStartDateTime,
-                "\nbe: " + bookingEndDateTime,
-                "\nsd: " + selectedStartDateTime,
-                "\nsdp: " + selectedEndDateTime);
-
             if (bookingStartDateTime < selectedEndDateTime && bookingEndDateTime > selectedStartDateTime) {
-                bookingButton.innerText = "Booked";
-                bookingButton.setAttribute('style','background-color: #7d1515');
-                bookingButton.addEventListener('dblclick', function bookButtonAction(){
-                    bookingButton.innerText = "Book now";
-                    bookingButton.setAttribute('style','background-color: #157d31');
-                });
-                cell.appendChild(bookingButton);
+                booked = true;
+                establishCellState(false, booking);
                 break;
             }
         }
-        cell.appendChild(bookingButton);
     }
+    if (!booked) establishCellState(true);
 }
 
 function createRow(lane) {
@@ -72,11 +194,7 @@ function createRow(lane) {
         // Create new "timeSlot" property for all cells where we store their respective time slot.
         // Assign start hour into new property (e.g. 9 + 1 = 10:00 )
         row.cells.item(i).timeSlot = 9 + i;
-        addButton(row.cells.item(i), bookingArr, rowCount);
-        // Differentiate regular lanes from lanes reserved for children as per customer requirements
-        if (rowCount > 20) {
-            row.setAttribute("style", "background-color: #157d31");
-        }
+        loadIndividualCell(row.cells.item(i), bookingArr, rowCount)
     }
 }
 
