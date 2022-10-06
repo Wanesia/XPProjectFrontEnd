@@ -38,6 +38,114 @@ document.addEventListener("DOMContentLoaded", () => {
     generateTable.click();
 });
 
+async function putRequest(evt, id) {
+    const fetchOptions = {
+        method: "PUT",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: ""
+    }
+    const urlStartDateTime = "startDateTime=" + startDateTime.value + ":00";
+    const urlEndDateTime = "endDateTime=" + endDateTime.value + ":00";
+    const urlFirstName = "firstName=" + customerFirstName.value;
+    const urlLastName = "lastName=" + customerLastName.value;
+    const urlPhoneNumber = "phoneNumber=" + customerTelephone.value;
+
+    const url = localHockeyBookingApi + "/" + id + "?"
+        + urlStartDateTime + "&"
+        + urlEndDateTime + "&"
+        + urlFirstName + "&"
+        + urlLastName + "&"
+        + urlPhoneNumber
+
+    const response = await fetch(url, fetchOptions);
+    // Refresh page on reload
+    if (response.ok) {
+        document.location.reload();
+
+        /*
+        FIX NEEDED
+        */
+        datePicker.value = startDateTime.value;
+        /*
+        FIX NEEDED
+        */
+    }
+    return response;
+}
+
+async function deleteRequest(evt, id) {
+    const fetchOptions = {
+        method: "DELETE",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: ""
+    }
+
+    const response = await fetch(localHockeyBookingApi + "/" + id, fetchOptions);
+
+    // Refresh page on reload
+    if (response.ok) {
+        document.location.reload();
+
+        /*
+        FIX NEEDED
+        */
+        datePicker.value = startDateTime.value;
+        /*
+        FIX NEEDED
+        */
+    }
+    return response;
+}
+
+async function postRequest(evt, row) {
+    const fetchOptions = {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: ""
+    }
+
+    console.log(row);
+
+    const newBooking = {
+        "startDateTime": startDateTime.value
+            .replace('T', ' ') + ":00",
+        "endDateTime": endDateTime.value
+            .replace('T', ' ') + ":00",
+        "customer": {
+            "firstName": customerFirstName.value,
+            "lastName": customerLastName.value,
+            "phoneNumber": customerTelephone.value,
+        },
+        "hockeyTable": {
+            "id": row,
+            "booked": false,
+            "inOrder": true
+        }
+    }
+
+    fetchOptions.body = JSON.stringify(newBooking);
+    const response = await fetch(localHockeyBookingApi, fetchOptions);
+    // Refresh page on reload
+    if (response.ok) {
+        document.location.reload();
+
+        /*
+        FIX NEEDED
+        */
+        datePicker.value = startDateTime.value;
+        /*
+        FIX NEEDED
+        */
+    }
+    return response;
+}
+
 /**
  * Takes care of the logic behind the pop-up window that appears when clicking a cell.
  * @param cell HTML element representing the cell that has been selected
@@ -59,6 +167,12 @@ function handleModal(cell, rowCount, isBooked, booking) {
 
         // If the selected cell corresponds to a booking
         if (isBooked) {
+            // Empty input fields from potential previous values
+            startDateTime.value = null;
+            endDateTime.value = null;
+            customerFirstName.value = "";
+            customerLastName.value = "";
+            customerTelephone.value = "";
             // Set datetime input fields values to booking values
             startDateTime.value = booking.startDateTime;
             endDateTime.value = booking.endDateTime;
@@ -73,9 +187,19 @@ function handleModal(cell, rowCount, isBooked, booking) {
             confirmChangesButton.setAttribute("style", "display: block");
             cancelButton.setAttribute("style", "display: block");
 
+            confirmChangesButton.addEventListener("click", function (evt) {
+                putRequest(evt, booking['id']).then(r => console.log(r));
+            });
+
+            cancelButton.addEventListener("click", function(evt) {
+                deleteRequest(evt, booking['id']).then(r => console.log(r));
+            });
+
         // If the selected cell does not correspond to a booking
         } else {
-            // Empty customer input fields from potential previous values
+            // Empty input fields from potential previous values
+            startDateTime.value = null;
+            endDateTime.value = null;
             customerFirstName.value = "";
             customerLastName.value = "";
             customerTelephone.value = "";
@@ -103,49 +227,9 @@ function handleModal(cell, rowCount, isBooked, booking) {
             cancelButton.setAttribute("style", "display: none");
 
             // Prepare POST method on bookButton
-            bookButton.addEventListener('click', async function() {
-                const fetchOptions = {
-                    method: "POST",
-                    headers: {
-                        "Content-type": "application/json"
-                    },
-                    body: ""
-                }
-
-                const newBooking = {
-                    "startDateTime": startDateTime.value
-                        .replace('T', ' ') + ":00",
-                    "endDateTime": endDateTime.value
-                        .replace('T', ' ') + ":00",
-                    "customer": {
-                        "firstName": customerFirstName.value,
-                        "lastName": customerLastName.value,
-                        "phoneNumber": customerTelephone.value,
-                    },
-                    "hockeyTable": {
-                        "id": rowCount,
-                        "booked": false,
-                        "inOrder": true
-                    }
-                }
-
-                fetchOptions.body = JSON.stringify(newBooking);
-                const response = await fetch(localHockeyBookingApi, fetchOptions);
-                // Refresh page on reload
-                if (response.ok) {
-                    document.location.reload();
-
-                    /*
-                    FIX NEEDED
-                    */
-                    datePicker.value = startDateTime.value;
-                    /*
-                    FIX NEEDED
-                    */
-                }
-                return response;
+            bookButton.addEventListener('click', function(evt) {
+                postRequest(evt, rowCount).then(r => console.log(r));
             });
-
         }
     });
     // Close window on button click
