@@ -72,7 +72,7 @@ function fetchBooking(url) {
 function dateOnChange()
 {
     console.log(timeInput.value)
-    tables.forEach(table => table.style.backgroundColor="purple")
+    tables.forEach(table => table.style.backgroundColor="#704F32")
     if(timeInput.value !== "")
     {
         tables.forEach(addClicker)
@@ -85,7 +85,7 @@ function timeOnChange()
     console.log(dateTimeInput.value + " " + timeInput.value)
     let endDateTime = new Date(dateTimeInput.value + " " + timeInput.value)
     endDateTime.setHours(endDateTime.getHours() + 3);
-    tables.forEach(table => table.style.backgroundColor="purple")
+    tables.forEach(table => table.style.backgroundColor="#704F32")
     timeVal = timeInput.value + ":00"
     if(dateTimeInput.value !== "")
     {
@@ -164,7 +164,6 @@ async function restPostDiningBooking(booking) {
 
     //calls backend and wait for return
     const response = await fetch(url, fetchOptions).then(fetchBookedTables);
-    response
     timeOnChange()
     if (!response.ok) {
         console.log("Fix bugs");
@@ -185,6 +184,8 @@ function addClicker(table) {
             if(table.id == modalTitle.innerHTML && table.style.backgroundColor === "#f00511") {
                 table.style.backgroundColor = "#704F32"
             }
+            let endDateTime = new Date(dateTimeInput.value + " " + timeInput.value)
+            endDateTime.setHours(endDateTime.getHours() + 1);
             let booking = {
                 startDateTime: dateTimeInput.value + " " + timeInput.value,
                 endDateTime: dateTimeInput.value + " " + padTo2Digits(endDateTime.getHours()) + ":" + padTo2Digits(endDateTime.getMinutes()),
@@ -198,7 +199,7 @@ function addClicker(table) {
                     booked:false},
             }
             if(booking.customer.firstName != "" && booking.customer.lastName != "" && booking.customer.phoneNumber != "") {
-                restPostDiningBooking(booking)
+                restDeleteDiningBooking(booking)
             }
             inputs.forEach(input=>input.value="")
         })
