@@ -367,7 +367,7 @@ document.getElementById('date').valueAsDate = new Date();
 editLaneState.toggled = false;
 editLaneState.addEventListener('click', () => {
         const lastColumns = document.getElementsByClassName("lastColumn")
-        for (let i = 1; i < lastColumns.length; i++) {
+        for (let i = 0; i < lastColumns.length; i++) {
             lastColumns.item(i).classList.toggle("hideColumn")}
         })
 
