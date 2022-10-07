@@ -10,7 +10,7 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 12%;
-    z-index: 1;
+
     width: 100%;
 
 }
@@ -28,7 +28,7 @@
 label {
     font-size: 12px;
     letter-spacing: 1px;
-    color: #fff;
+    /*color: #fff;*/
     font-weight: 400;
     position: relative;
     z-index: 1;
@@ -207,7 +207,6 @@ a:hover{
     margin-right: auto;
     margin-top: 10%;
     width: 85%;
-
 }
 
 .btn-generate {
@@ -218,28 +217,27 @@ a:hover{
     margin-left: 0.25rem;
 }
 
-/*
-You've overwritten the bootstrap default button.
-Any future usages of bootstrap buttons will take this style.
-Highly recommended to use a different name unless you want to make bootstrap pointless.
-*/
-/*.btn {
-    color:aqua;
-    background: black;
-    border-radius: 60px;
-    border: 1px solid white;
-    margin-left: 0.25rem;
+.outOfOrder {
+    background: #ee6c03 !important;
+}
+.lastColumn{
+    /*background-color: #008cff !important;*/
 }
 
 
-.btn-search {
-    position: absolute;
-    right: 5%;
+.lastColumn:hover{
+    background-color: #ff0000 !important;
+    color: white !important;
+    content: "c";
 }
-.btn:hover{
-    color:purple;
-    background-color:white;
-    border: 1px solid black;
-    text-shadow: 0.25px 0.25px black;
+
+.outOfOrderColumn {
+    display: none;
 }
- */
+
+
+#modalBodyForm {
+    display: flex;
+}
+
+
