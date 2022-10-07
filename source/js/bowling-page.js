@@ -47,7 +47,7 @@ function handleModal(cell, rowCount, isBooked, booking) {
         }
         // If the modal is not being displayed, display it
         modal.style.display = "block";
-        modalTitle.innerText = "Hockey Table " + rowCount;
+        modalTitle.innerText = "Bowling lane " + rowCount;
 
         // If the selected cell corresponds to a booking
         if (isBooked) {
