@@ -2,48 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Main Page</title>
+  <title>search</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="css/hockeyStyles.css">
+  <link rel="stylesheet" href="css/hockeySearch.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
-<div class="layer" id="navbar">
-  <div class="top">
-    <a class="home-link" href="index.html">
-      <img class="home-icon" src="/resources/home.png" alt="Home button">
-    </a>
-    <ul>
-      <li><a href="bowling.html" class="hover-underline-animation">Bowling</a></li>
-      <li><a href="hockey.html" class="hover-underline-animation">Air Hockey</a></li>
-      <li><a href="dining.html" class="hover-underline-animation">Dining</a></li>
-      <li><a href="stock.html" class="hover-underline-animation">Stock</a></li>
-    </ul>
-  </div>
-</div>
 <body>
-
-<div class="hsearchbar" id="hsbar">
-  <form id="form" role="search">
-    <input type="search" id="query" name="q"
-           placeholder="Search..."
-           aria-label="Search through site content">
-    <button>Search</button>
-  </form>
-</div>
-<div class="calendarbutton" id="calendar">
-  <div>
-    <a href="hockey.html">Calendar</a>
+<div class="layer">
+  <a class="home-link" href="index.html">
+    <img class="home-icon" src="/resources/home.png" alt="Home button">
+  </a>
+  <div class="search">
+    <label for="hockey-drop-down">Choose Search option</label>
+    <select name="hockey-drop-down" id="hockey-drop-down" autocomplete="off">
+      <option value="LaneNumber">Lane Number</option>
+      <option value="StartDate">Start Date</option>
+      <option value="EndDate">End Date</option>
+      <option value="CustomerFirstName">Customer First Name</option>
+      <option value="CustomerLastName">Customer Last Name</option>
+      <option value="CustomerPhoneNumber">Customer Phone Number</option>
+    </select>
+    <form action="" class="search-bar">
+      <label>
+        <input type="text" placeholder="search anything" name =q>
+      </label>
+      <button id="hockeySearchButton" type="button"><img src="/resources/search.png" alt="search-icon"> </button>
+    </form>
   </div>
 </div>
-
-<div class="background">
+<div id="root">
 </div>
-
-<!-- /.container -->
-<script src="js/hockey-page.js"></script>
+<script src="js/hockey-search.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -53,6 +45,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-
 </body>
 </html>
