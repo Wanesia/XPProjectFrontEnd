@@ -2,9 +2,6 @@
 const localLaneApi = "http://localhost:8080/api/v1/bowling-lane";
 const localBowlingBookingApi = "http://localhost:8080/api/v1/bowling-booking";
 
-
-// Table itself retrieved from the HTML document
-const bookingTable = document.getElementById("bookingtable2");
 // HTML Button element which will trigger generation
 const buttCreateTable = document.getElementById("generateTable");
 // Edit Lane State
@@ -14,14 +11,10 @@ const tableBody = document.getElementById("tableBody");
 // HTML date input field that the user changes to see bookings for a specific day
 let datePicker = document.getElementById("date");
 
-
 let laneArr = [];
 let bookingArr = [];
-let inOrderArr = [];
 
-document.addEventListener("DOMContentLoaded", () => {
-    buttCreateTable.click();
-});
+document.addEventListener("DOMContentLoaded", () => {buttCreateTable.click();});
 
 function createBowlingLaneCountColumn(row, rowCount) {
     // Generate the first cell, used for the row number
@@ -37,6 +30,8 @@ function createBowlingLaneCountColumn(row, rowCount) {
  * @param isBooked Boolean that is passed for conditional logic for a booked vs. a free cell.
  * @param booking Optional object that represents the booking itself, if any.
  */
+
+
 function handleModal(cell, rowCount, isBooked, booking) {
     // Handle modal logic
     cell.addEventListener('click', () => {
@@ -194,7 +189,30 @@ function handleModal(cell, rowCount, isBooked, booking) {
     closeButton.addEventListener('click', () => {
         modal.style.display = "none"
     });
+}
+async function deleteRequest(evt, id) {
+    const fetchOptions = {
+        method: "DELETE",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: ""
+    }
+    const response = await fetch(localBowlingBookingApi + "/" + id, fetchOptions);
 
+    // Refresh page on reload
+    if (response.ok) {
+        document.location.reload();
+
+        /*
+        FIX NEEDED
+        */
+        datePicker.value = startDateTime.value;
+        /*
+        FIX NEEDED
+        */
+    }
+    return response;
 }
 
 /**
@@ -247,21 +265,18 @@ function loadIndividualCell(cell, bookingArr, rowCount) {
     }
 }
 
+//Adds a last cell that allows to disable a lane
 function loadOutOfOrderCell(cell, lane) {
     if (lane.inOrder == true) {
-        cell.innerText = "In Order"
-        cell.classList.add("interactive-cell");
-        cell.classList.add("cellFree");
-        cell.classList.add("outOfOrderColumn");
+        cell.classList.add("hideColumn")
+        cell.classList.add("inOrder");
         cell.classList.add("lastColumn")
         cell.addEventListener('click', () => {
             putOutOfOrder(lane.id, false)
         })
     } else {
-        cell.innerText = "Out of Order"
-        cell.classList.add("interactive-cell");
+        cell.classList.add("hideColumn")
         cell.classList.add("lastColumn")
-        cell.classList.add("outOfOrder");
         cell.classList.add("outOfOrderColumn");
         cell.addEventListener('click', () => {
             putOutOfOrder(lane.id, true)
@@ -304,11 +319,11 @@ function createRow(lane) {
     // Row which is currently being generated established by the entity ID from the back-end
     const rowCount = lane.id;
     // Generating row itself, no cells yet.
-    let row = tableBody.insertRow(rowCount - 1)
+    let row = tableBody.insertRow(rowCount -1)
     createBowlingLaneCountColumn(row, rowCount);
     if (lane.inOrder == true) {
         // Populate all 12 timeslots with cells
-        for (let i = 1; i < 13; i++) {
+        for (let i =1; i < 13; i++) {
             row.insertCell(i);
             // Create new "timeSlot" property for all cells where we store their respective time slot.
             // Assign start hour into new property (e.g. 9 + 1 = 10:00 )
@@ -320,13 +335,11 @@ function createRow(lane) {
             row.insertCell(i);
             row.cells.item(i).classList.add("interactive-cell");
             row.cells.item(i).classList.add("outOfOrder");
-
-
-            row.cells.item(i).textContent = 'Out Of Order';
+            row.cells.item(i).textContent = '';
         }
     }
     row.insertCell(13)
-
+    //adds last cell to disable lane
     loadOutOfOrderCell(row.cells.item(13), lane)
 }
 
@@ -353,41 +366,10 @@ document.getElementById('date').valueAsDate = new Date();
 //edit lane state visible
 editLaneState.toggled = false;
 editLaneState.addEventListener('click', () => {
-    if (editLaneState.toggled === false) {
-        editLaneState.toggled === true
-        console.log('now open')
         const lastColumns = document.getElementsByClassName("lastColumn")
-        for (let i = 0; i < lastColumns.length; i++) {
-            lastColumns.item(i).classList.toggle("outOfOrderColumn")
-        }
-    } else {
-        console.log("now closed")
-    }
-})
+        for (let i = 1; i < lastColumns.length; i++) {
+            lastColumns.item(i).classList.toggle("hideColumn")}
+        })
 
 datePicker.valueAsDate = new Date();
 
-async function deleteRequest(evt, id) {
-    const fetchOptions = {
-        method: "DELETE",
-        headers: {
-            "Content-type": "application/json"
-        },
-        body: ""
-    }
-    const response = await fetch(localBowlingBookingApi + "/" + id, fetchOptions);
-
-    // Refresh page on reload
-    if (response.ok) {
-        document.location.reload();
-
-        /*
-        FIX NEEDED
-        */
-        datePicker.value = startDateTime.value;
-        /*
-        FIX NEEDED
-        */
-    }
-    return response;
-}
