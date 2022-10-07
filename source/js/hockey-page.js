@@ -15,7 +15,7 @@ const generateTable = document.getElementById("generateTable");
 let datePicker = document.getElementById("date");
 /* =================================== */
 
-/* ============== Modal ============== */
+/* ============== Booking Modal ============== */
 // Modal itself
 const modal = document.getElementById("modal");
 // Title
@@ -33,10 +33,191 @@ const cancelButton = document.getElementById("cancelButton");
 const closeButton = document.getElementById("closeButton");
 /* =================================== */
 
+/* ============== Table Modal ============== */
+// Modal itself
+const tableModal = document.getElementById("tableModal");
+// Title
+const tableModalTitle = document.getElementById("tableModalTitle");
+// Input fields
+const tableModalText = document.getElementById("tableModalText");
+// Buttons
+const openTableButton = document.getElementById("openTableButton");
+const closeTableButton = document.getElementById("closeTableButton");
+const closeTableModalButton = document.getElementById("closeTableModalButton");
+/* =================================== */
+
 // Load table by default on window render
 document.addEventListener("DOMContentLoaded", () => {
     generateTable.click();
 });
+
+async function putRequest(evt, id) {
+    const fetchOptions = {
+        method: "PUT",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: ""
+    }
+    const urlStartDateTime = "startDateTime=" + startDateTime.value + ":00";
+    const urlEndDateTime = "endDateTime=" + endDateTime.value + ":00";
+    const urlFirstName = "firstName=" + customerFirstName.value;
+    const urlLastName = "lastName=" + customerLastName.value;
+    const urlPhoneNumber = "phoneNumber=" + customerTelephone.value;
+
+    const url = localHockeyBookingApi + "/" + id + "?"
+        + urlStartDateTime + "&"
+        + urlEndDateTime + "&"
+        + urlFirstName + "&"
+        + urlLastName + "&"
+        + urlPhoneNumber
+
+    const response = await fetch(url, fetchOptions);
+    // Refresh page on reload
+    if (response.ok) {
+        document.location.reload();
+
+        /*
+        FIX NEEDED
+        */
+        datePicker.value = startDateTime.value;
+        /*
+        FIX NEEDED
+        */
+    }
+    return response;
+}
+
+async function deleteRequest(evt, id) {
+    const fetchOptions = {
+        method: "DELETE",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: ""
+    }
+
+    const response = await fetch(localHockeyBookingApi + "/" + id, fetchOptions);
+
+    // Refresh page on reload
+    if (response.ok) {
+        document.location.reload();
+
+        /*
+        FIX NEEDED
+        */
+        datePicker.value = startDateTime.value;
+        /*
+        FIX NEEDED
+        */
+    }
+    return response;
+}
+
+async function postRequest(evt, row) {
+    const fetchOptions = {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: ""
+    }
+
+    console.log(row);
+
+    const newBooking = {
+        "startDateTime": startDateTime.value
+            .replace('T', ' ') + ":00",
+        "endDateTime": endDateTime.value
+            .replace('T', ' ') + ":00",
+        "customer": {
+            "firstName": customerFirstName.value,
+            "lastName": customerLastName.value,
+            "phoneNumber": customerTelephone.value,
+        },
+        "hockeyTable": {
+            "id": row,
+            "booked": false,
+            "inOrder": true
+        }
+    }
+
+    fetchOptions.body = JSON.stringify(newBooking);
+    const response = await fetch(localHockeyBookingApi, fetchOptions);
+    // Refresh page on reload
+    if (response.ok) {
+        document.location.reload();
+
+        /*
+        FIX NEEDED
+        */
+        datePicker.value = startDateTime.value;
+        /*
+        FIX NEEDED
+        */
+    }
+    return response;
+}
+
+async function closeLane(evt, id, close) {
+    const fetchOptions = {
+        method: "PUT",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: ""
+    }
+
+    const response = await fetch(localTableApi + "/" + id + "?inOrder=" + close.toString() , fetchOptions);
+    // Refresh page on reload
+    if (response.ok) {
+        document.location.reload();
+        /*
+        FIX NEEDED
+        */
+        datePicker.value = startDateTime.value;
+        /*
+        FIX NEEDED
+        */
+    }
+    return response;
+}
+
+function handleTableModal(evt, cell, id) {
+    // If the modal is being displayed, hide it and stop the rest of the function from executing
+    if (!(tableModal.style.display === "none")) {
+        tableModal.style.display = "none";
+        return;
+    }
+    // If the modal is not being displayed, display it
+    tableModal.style.display = "block";
+    tableModalTitle.innerText = "Hockey Table " + id;
+    let hockeyTable = null;
+    for (let table of tableArr) {
+        if (table.id === id) {
+            hockeyTable = table;
+        }
+    }
+    if (hockeyTable.inOrder) {
+        tableModalText.innerText = "Air Hockey table is in order.";
+        openTableButton.setAttribute("style", "display: none");
+        closeTableButton.setAttribute("style", "display: block");
+
+        closeTableButton.addEventListener('click', function(evt) {
+            closeLane(evt, hockeyTable.id, false).then(r => console.log(r));
+        });
+    } else {
+        tableModalText.innerText = "Air Hockey table is closed.";
+        openTableButton.setAttribute("style", "display: block");
+        closeTableButton.setAttribute("style", "display: none");
+
+        openTableButton.addEventListener('click',  function(evt) {
+            closeLane(evt, hockeyTable.id, true).then(r => console.log(r));
+        });
+    }
+    // Close window on button click
+    closeTableModalButton.addEventListener('click', () => {tableModal.style.display = "none"});
+}
 
 /**
  * Takes care of the logic behind the pop-up window that appears when clicking a cell.
@@ -59,6 +240,12 @@ function handleModal(cell, rowCount, isBooked, booking) {
 
         // If the selected cell corresponds to a booking
         if (isBooked) {
+            // Empty input fields from potential previous values
+            startDateTime.value = null;
+            endDateTime.value = null;
+            customerFirstName.value = "";
+            customerLastName.value = "";
+            customerTelephone.value = "";
             // Set datetime input fields values to booking values
             startDateTime.value = booking.startDateTime;
             endDateTime.value = booking.endDateTime;
@@ -73,9 +260,19 @@ function handleModal(cell, rowCount, isBooked, booking) {
             confirmChangesButton.setAttribute("style", "display: block");
             cancelButton.setAttribute("style", "display: block");
 
+            confirmChangesButton.addEventListener("click", function (evt) {
+                putRequest(evt, booking['id']).then(r => console.log(r));
+            });
+
+            cancelButton.addEventListener("click", function(evt) {
+                deleteRequest(evt, booking['id']).then(r => console.log(r));
+            });
+
         // If the selected cell does not correspond to a booking
         } else {
-            // Empty customer input fields from potential previous values
+            // Empty input fields from potential previous values
+            startDateTime.value = null;
+            endDateTime.value = null;
             customerFirstName.value = "";
             customerLastName.value = "";
             customerTelephone.value = "";
@@ -103,49 +300,9 @@ function handleModal(cell, rowCount, isBooked, booking) {
             cancelButton.setAttribute("style", "display: none");
 
             // Prepare POST method on bookButton
-            bookButton.addEventListener('click', async function() {
-                const fetchOptions = {
-                    method: "POST",
-                    headers: {
-                        "Content-type": "application/json"
-                    },
-                    body: ""
-                }
-
-                const newBooking = {
-                    "startDateTime": startDateTime.value
-                        .replace('T', ' ') + ":00",
-                    "endDateTime": endDateTime.value
-                        .replace('T', ' ') + ":00",
-                    "customer": {
-                        "firstName": customerFirstName.value,
-                        "lastName": customerLastName.value,
-                        "phoneNumber": customerTelephone.value,
-                    },
-                    "hockeyTable": {
-                        "id": rowCount,
-                        "booked": false,
-                        "inOrder": true
-                    }
-                }
-
-                fetchOptions.body = JSON.stringify(newBooking);
-                const response = await fetch(localHockeyBookingApi, fetchOptions);
-                // Refresh page on reload
-                if (response.ok) {
-                    document.location.reload();
-
-                    /*
-                    FIX NEEDED
-                    */
-                    datePicker.value = startDateTime.value;
-                    /*
-                    FIX NEEDED
-                    */
-                }
-                return response;
+            bookButton.addEventListener('click', function(evt) {
+                postRequest(evt, rowCount).then(r => console.log(r));
             });
-
         }
     });
     // Close window on button click
@@ -160,6 +317,15 @@ function handleModal(cell, rowCount, isBooked, booking) {
  * @param rowCount
  */
 function loadIndividualCell(cell, bookingArr, rowCount) {
+
+    // Handle closed table
+    for (let table of tableArr) {
+        if (table.id === rowCount && !table.inOrder) {
+            cell.innerText = "Closed"
+            cell.setAttribute("style","background-color: #542367; text-align: center;");
+            return; // Function stops executing here if table is closed
+        }
+    }
 
     cell.classList.add("interactive-cell");
 
@@ -205,11 +371,15 @@ function createRow(table) {
     // Row which is currently being generated established by the entity ID from the back-end
     const rowCount = table.id;
     // Generating row itself, no cells yet.
-    let row = tableBody.insertRow(rowCount - 1)
+    let row = tableBody.insertRow(rowCount - 1);
     // Generate the first cell, used for the row number
     let tableNumber = row.insertCell();
     // Establish first cell text as the table number
     tableNumber.innerText = rowCount;
+    tableNumber.classList.add("interactive-table");
+    tableNumber.addEventListener('click', function (evt) {
+        handleTableModal(evt, tableNumber, rowCount);
+    });
     // Populate all 12 timeslots with cells
     for (let i = 1; i < 13; i++) {
         row.insertCell(i);

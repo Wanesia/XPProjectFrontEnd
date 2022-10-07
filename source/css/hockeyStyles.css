@@ -382,6 +382,10 @@ td {
     color: white !important;
 }
 
+.interactive-table:hover {
+    background-color: #282d31 !important;
+}
+
 table {
     border: white;
     width: 95%;
