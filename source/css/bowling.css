@@ -220,19 +220,63 @@ a:hover{
 .outOfOrder {
     background: #ee6c03 !important;
 }
-.lastColumn{
-    /*background-color: #008cff !important;*/
+.outOfOrder:after {
+    content: "Out of Order" !important;
 }
+.inOrder{
+    background-color: #278d27;
+    text-align: center;
+    color: black;
+}
+.inOrder:after{
+    content: "In Order";
+}
+
+.lastColumn{
+   width: 100px;
+}
+
 
 
 .lastColumn:hover{
     background-color: #ff0000 !important;
     color: white !important;
-    content: "c";
+
+}
+.lastColumn:hover::after{
+    background-color: #ff0000 !important;
+    color: white !important;
+    content: "on/off";
 }
 
-.outOfOrderColumn {
+.hideColumn{
     display: none;
+}
+
+/*.outOfOrderColumn {*/
+/*    background: #ee6c03 !important;*/
+/*    content: "Out of Order";*/
+/*}*/
+
+.outOfOrderColumn {
+    background: #ee6c03 !important;
+
+}
+
+.outOfOrderColumn:after {
+    background: #ee6c03 !important;
+    content: "Out of Order";
+}
+
+.outOfOrderColumn:hover{
+    background-color: #ff0000 !important;
+    color: white !important;
+
+}
+.outOfOrderColumn:hover::after{
+    background-color: #ff0000 !important;
+    color: white !important;
+    content: "on/off";
 }
 
 
