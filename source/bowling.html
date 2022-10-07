@@ -31,9 +31,11 @@
         <input type="date" id="date" name="date">
         <button id="generateTable" class="btn btn-generate">Generate Table</button>
         <a href="search.html"><button class="btn btn-generate">Search</button></a>
+        <button id="editLaneStates" class="btn btn-generate">Disable Lanes</button>
     </div>
     <br>
     <br>
+
     <table class="bowling table-dark" id="bookingtable2">
         <thead>
         <tr>
@@ -50,8 +52,11 @@
             <th>19:00 - 20:00</th>
             <th>20:00 - 21:00</th>
             <th>21: 00 - 22:00</th>
+            <th class="lastColumn outOfOrderColumn" style="background-color: #343a40 ;">State</th>
         </tr>
         </thead>
+        <tbody id="tableBody">
+        </tbody>
     </table>
 
     <div id="modal" class="modal" tabindex="-1" role="dialog" style="display: none">
@@ -90,7 +95,6 @@
             </div>
         </div>
     </div>
-
 
 <div class="background">
 

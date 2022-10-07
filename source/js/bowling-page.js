@@ -2,15 +2,26 @@
 const localLaneApi = "http://localhost:8080/api/v1/bowling-lane";
 const localBowlingBookingApi = "http://localhost:8080/api/v1/bowling-booking";
 
+
 // Table itself retrieved from the HTML document
 const bookingTable = document.getElementById("bookingtable2");
 // HTML Button element which will trigger generation
 const buttCreateTable = document.getElementById("generateTable");
+// Edit Lane State
+let editLaneState = document.getElementById("editLaneStates");
+// Table from HTML template
+const tableBody = document.getElementById("tableBody");
 // HTML date input field that the user changes to see bookings for a specific day
 let datePicker = document.getElementById("date");
 
+
 let laneArr = [];
 let bookingArr = [];
+let inOrderArr = [];
+
+document.addEventListener("DOMContentLoaded", () => {
+    buttCreateTable.click();
+});
 
 function createBowlingLaneCountColumn(row, rowCount) {
     // Generate the first cell, used for the row number
@@ -84,7 +95,7 @@ function handleModal(cell, rowCount, isBooked, booking) {
             cancelButton.setAttribute("style", "display: none");
 
             // Prepare POST method on bookButton
-            bookButton.addEventListener('click', async function() {
+            bookButton.addEventListener('click', async function () {
                 const fetchOptions = {
                     method: "POST",
                     headers: {
@@ -103,15 +114,16 @@ function handleModal(cell, rowCount, isBooked, booking) {
                         "lastName": customerLastName.value,
                         "phoneNumber": customerTelephone.value,
                     },
-                    "hockeyTable": {
+                    "bowlingLane": {
                         "id": rowCount,
-                        "booked": false,
-                        "inOrder": true
+                        "inOrder": true,
+                        "booked": false
                     }
                 }
-
+                alert(rowCount)
                 fetchOptions.body = JSON.stringify(newBooking);
-                const response = await fetch(localHockeyBookingApi, fetchOptions);
+                alert(fetchOptions.body)
+                const response = await fetch(localBowlingBookingApi, fetchOptions);
                 // Refresh page on reload
                 if (response.ok) {
                     document.location.reload();
@@ -126,11 +138,13 @@ function handleModal(cell, rowCount, isBooked, booking) {
                 }
                 return response;
             });
-
         }
     });
     // Close window on button click
-    closeButton.addEventListener('click', () => {modal.style.display = "none"});
+    closeButton.addEventListener('click', () => {
+        modal.style.display = "none"
+    });
+
 }
 
 /**
@@ -143,23 +157,6 @@ function handleModal(cell, rowCount, isBooked, booking) {
 function loadIndividualCell(cell, bookingArr, rowCount) {
 
     cell.classList.add("interactive-cell");
-
-    function establishCellState(isFree, booking) {
-        if (!isFree) {
-            cell.innerText = "Booked";
-            cell.classList.add("cellBooked");
-            handleModal(cell, rowCount, true, booking);
-            return;
-        }
-        cell.innerText = "Free";
-        cell.classList.add("cellFree");
-        handleModal(cell, rowCount, false, null);
-
-        // Differentiate regular lanes from lanes reserved for children as per customer requirements
-        if (rowCount > 20) {
-            cell.classList.add("kid");
-        }
-    }
 
     // forEach won't work here because it does not support break
     let booked = false;
@@ -180,22 +177,107 @@ function loadIndividualCell(cell, bookingArr, rowCount) {
         }
     }
     if (!booked) establishCellState(true);
+
+    function establishCellState(isFree, booking) {
+        if (!isFree) {
+            cell.innerText = "Booked";
+            cell.classList.add("cellBooked");
+            handleModal(cell, rowCount, true, booking);
+            return;
+        }
+        cell.innerText = "Free";
+        cell.classList.add("cellFree");
+        handleModal(cell, rowCount, false, null);
+
+
+        // Differentiate regular lanes from lanes reserved for children as per customer requirements
+        if (rowCount > 20) {
+            cell.classList.add("kid");
+        }
+    }
+}
+
+function loadOutOfOrderCell(cell, lane) {
+    if (lane.inOrder == true) {
+        cell.innerText = "In Order"
+        cell.classList.add("interactive-cell");
+        cell.classList.add("cellFree");
+        cell.classList.add("outOfOrderColumn");
+        cell.classList.add("lastColumn")
+        cell.addEventListener('click', () => {
+            putOutOfOrder(lane.id, false)
+        })
+    } else {
+        cell.innerText = "Out of Order"
+        cell.classList.add("interactive-cell");
+        cell.classList.add("lastColumn")
+        cell.classList.add("outOfOrder");
+        cell.classList.add("outOfOrderColumn");
+        cell.addEventListener('click', () => {
+            putOutOfOrder(lane.id, true)
+        })
+    }
+}
+
+async function putOutOfOrder(rowCount, state) {
+    const fetchOptions = {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: ""
+    }
+    const updateLaneState = {
+        "id": rowCount,
+        "booked": false,
+        "inOrder": state
+    }
+
+    fetchOptions.body = JSON.stringify(updateLaneState);
+    const response = await fetch(localLaneApi, fetchOptions);
+    if (response.ok) {
+        document.location.reload();
+
+        /*
+        FIX NEEDED
+        */
+
+        /*
+        FIX NEEDED
+        */
+    }
+    return response;
+
 }
 
 function createRow(lane) {
     // Row which is currently being generated established by the entity ID from the back-end
     const rowCount = lane.id;
     // Generating row itself, no cells yet.
-    let row = bookingTable.insertRow(rowCount)
+    let row = tableBody.insertRow(rowCount - 1)
     createBowlingLaneCountColumn(row, rowCount);
-    // Populate all 12 timeslots with cells
-    for (let i = 1; i < 13; i++) {
-        row.insertCell(i);
-        // Create new "timeSlot" property for all cells where we store their respective time slot.
-        // Assign start hour into new property (e.g. 9 + 1 = 10:00 )
-        row.cells.item(i).timeSlot = 9 + i;
-        loadIndividualCell(row.cells.item(i), bookingArr, rowCount)
+    if (lane.inOrder == true) {
+        // Populate all 12 timeslots with cells
+        for (let i = 1; i < 13; i++) {
+            row.insertCell(i);
+            // Create new "timeSlot" property for all cells where we store their respective time slot.
+            // Assign start hour into new property (e.g. 9 + 1 = 10:00 )
+            row.cells.item(i).timeSlot = 9 + i;
+            loadIndividualCell(row.cells.item(i), bookingArr, rowCount)
+        }
+    } else {
+        for (let i = 1; i < 13; i++) {
+            row.insertCell(i);
+            row.cells.item(i).classList.add("interactive-cell");
+            row.cells.item(i).classList.add("outOfOrder");
+
+
+            row.cells.item(i).textContent = 'Out Of Order';
+        }
     }
+    row.insertCell(13)
+
+    loadOutOfOrderCell(row.cells.item(13), lane)
 }
 
 async function fetchBookings(url) {
@@ -205,12 +287,32 @@ async function fetchBookings(url) {
 async function fetchLanes(url) {
     return fetch(url).then(response => response.json());
 }
+
 async function doFetch() {
     laneArr = await fetchLanes(localLaneApi);
     bookingArr = await fetchBookings(localBowlingBookingApi);
+    tableBody.innerHTML = "";
     laneArr.forEach(createRow);
 }
+
 buttCreateTable.addEventListener('click', doFetch)
 
 //sets date to today's
 document.getElementById('date').valueAsDate = new Date();
+
+//edit lane state visible
+editLaneState.toggled = false;
+editLaneState.addEventListener('click', () => {
+    if (editLaneState.toggled === false){
+        editLaneState.toggled === true
+        console.log('now open')
+        const lastColumns = document.getElementsByClassName("lastColumn")
+        for (let i = 0; i < lastColumns.length; i++) {
+            lastColumns.item(i).classList.toggle("outOfOrderColumn")
+        }
+    } else {
+        console.log("now closed")
+    }
+})
+
+datePicker.valueAsDate = new Date();
