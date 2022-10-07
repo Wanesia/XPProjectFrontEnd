@@ -10,8 +10,7 @@ let bookingArr = [];
 
 function injectBookings(booking) {
     const newDiv = document.createElement("div");
-    const newContent = document.createTextNode("Helloo");
-    newDiv.appendChild(newContent);
+    newDiv.classList.add("entity-container");
     root.appendChild(newDiv);
 }
 
