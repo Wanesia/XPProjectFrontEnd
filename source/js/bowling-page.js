@@ -66,7 +66,6 @@ function handleModal(cell, rowCount, isBooked, booking) {
             cancelButton.setAttribute("style", "display: block");
 
             confirmChangesButton.addEventListener('click', async function () {
-                alert(booking.id)
                 const fetchOptions = {
                     method: "PUT",
                     headers: {
@@ -368,51 +367,6 @@ editLaneState.addEventListener('click', () => {
 
 datePicker.valueAsDate = new Date();
 
-
-async function putRequest(evt, id, booking) {
-    const fetchOptions = {
-        method: "POST",
-        headers: {
-            "Content-type": "application/json"
-        },
-        body: ""
-    }
-
-    const newBooking = {
-        "startDateTime": startDateTime.value
-            .replace('T', ' ') + ":00",
-        "endDateTime": endDateTime.value
-            .replace('T', ' ') + ":00",
-        "customer": {
-            "firstName": customerFirstName.value,
-            "lastName": customerLastName.value,
-            "phoneNumber": customerTelephone.value,
-        },
-        "bowlingLane": {
-            "id": rowCount,
-            "inOrder": true,
-            "booked": false
-        }
-    }
-
-    fetchOptions.body = JSON.stringify(newBooking);
-
-    const response = await fetch(localBowlingBookingApi, fetchOptions);
-    // Refresh page on reload
-    if (response.ok) {
-        document.location.reload();
-
-        /*
-        FIX NEEDED
-        */
-        datePicker.value = startDateTime.value;
-        /*
-        FIX NEEDED
-        */
-    }
-    return response;
-}
-
 async function deleteRequest(evt, id) {
     const fetchOptions = {
         method: "DELETE",
@@ -421,7 +375,6 @@ async function deleteRequest(evt, id) {
         },
         body: ""
     }
-    alert(id)
     const response = await fetch(localBowlingBookingApi + "/" + id, fetchOptions);
 
     // Refresh page on reload
