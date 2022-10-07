@@ -59,19 +59,12 @@
                     <br>
                     <label>Phone Number</label>
                     <input onchange="checkIfFilled()" id = "phoneNumber" required="required" class="inputs" type="tel">
-                    <br>
-                    <p class="hidden-input" style="top:52%">Date: <input id="newDate" type="date"></p>
-                    <br>
-                    <p class="hidden-input" style="top:68%">Time: <input id="newTime" type="time"></p>
-                    <p id="startDate"></p>
-                    <p id="time"></p>
-                    <br>
-                    <br>
-                    <br>
+                    <p id="date">Date: <input id="newDate" type="date"></p>
+                    <p id="time">Time: <input id="newTime" onchange="newTimeOnChange()" type="time"></p>
             </div>
             <div class="modal-footer">
                 <button id="createButton" type="submit" class="btn btn-primary">Create Booking</button>
-                <button id="saveButton" type="submit" class="btn btn-primary">Save Booking</button>
+                <button id="saveButton" type="button" class="btn btn-primary">Save Booking</button>
                 </form>
                 <button id="cancelButton" type="button" class="btn btn-danger">Cancel Booking</button>
                 <button id="closeButton" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
