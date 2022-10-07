@@ -47,7 +47,7 @@ function handleModal(cell, rowCount, isBooked, booking) {
         }
         // If the modal is not being displayed, display it
         modal.style.display = "block";
-        modalTitle.innerText = "Hockey Table " + rowCount;
+        modalTitle.innerText = "Bowling Lane " + rowCount;
 
         // If the selected cell corresponds to a booking
         if (isBooked) {
@@ -65,8 +65,58 @@ function handleModal(cell, rowCount, isBooked, booking) {
             confirmChangesButton.setAttribute("style", "display: block");
             cancelButton.setAttribute("style", "display: block");
 
+            confirmChangesButton.addEventListener('click', async function () {
+                alert(booking.id)
+                const fetchOptions = {
+                    method: "PUT",
+                    headers: {
+                        "Content-type": "application/json"
+                    },
+                    body: ""
+                }
+
+                const updatedBooking = {
+                    "id": booking.id,
+                    "startDateTime": startDateTime.value
+                        .replace('T', ' ') + ":00",
+                    "endDateTime": endDateTime.value
+                        .replace('T', ' ') + ":00",
+                    "customer": {
+                        "firstName": customerFirstName.value,
+                        "lastName": customerLastName.value,
+                        "phoneNumber": customerTelephone.value,
+                    },
+                    "bowlingLane": {
+                        "id": rowCount,
+                        "inOrder": true,
+                        "booked": false
+                    }
+                }
+
+                fetchOptions.body = JSON.stringify(updatedBooking);
+                alert(fetchOptions.body)
+                const response = await fetch(localBowlingBookingApi + "/" + booking.id, fetchOptions);
+                // Refresh page on reload
+                if (response.ok) {
+                    document.location.reload();
+
+                    /*
+                    FIX NEEDED
+                    */
+                    datePicker.value = startDateTime.value;
+                    /*
+                    FIX NEEDED
+                    */
+                }
+                return response;
+            });
+
+            cancelButton.addEventListener("click", function (evt) {
+                deleteRequest(evt, booking['id'], booking).then(r => console.log(r));
+            });
             // If the selected cell does not correspond to a booking
-        } else {
+        }
+        else {
             // Empty customer input fields from potential previous values
             customerFirstName.value = "";
             customerLastName.value = "";
@@ -139,8 +189,9 @@ function handleModal(cell, rowCount, isBooked, booking) {
                 return response;
             });
         }
-    });
-    // Close window on button click
+    })
+    ;
+// Close window on button click
     closeButton.addEventListener('click', () => {
         modal.style.display = "none"
     });
@@ -303,7 +354,7 @@ document.getElementById('date').valueAsDate = new Date();
 //edit lane state visible
 editLaneState.toggled = false;
 editLaneState.addEventListener('click', () => {
-    if (editLaneState.toggled === false){
+    if (editLaneState.toggled === false) {
         editLaneState.toggled === true
         console.log('now open')
         const lastColumns = document.getElementsByClassName("lastColumn")
@@ -316,3 +367,74 @@ editLaneState.addEventListener('click', () => {
 })
 
 datePicker.valueAsDate = new Date();
+
+
+async function putRequest(evt, id, booking) {
+    const fetchOptions = {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: ""
+    }
+
+    const newBooking = {
+        "startDateTime": startDateTime.value
+            .replace('T', ' ') + ":00",
+        "endDateTime": endDateTime.value
+            .replace('T', ' ') + ":00",
+        "customer": {
+            "firstName": customerFirstName.value,
+            "lastName": customerLastName.value,
+            "phoneNumber": customerTelephone.value,
+        },
+        "bowlingLane": {
+            "id": rowCount,
+            "inOrder": true,
+            "booked": false
+        }
+    }
+
+    fetchOptions.body = JSON.stringify(newBooking);
+
+    const response = await fetch(localBowlingBookingApi, fetchOptions);
+    // Refresh page on reload
+    if (response.ok) {
+        document.location.reload();
+
+        /*
+        FIX NEEDED
+        */
+        datePicker.value = startDateTime.value;
+        /*
+        FIX NEEDED
+        */
+    }
+    return response;
+}
+
+async function deleteRequest(evt, id) {
+    const fetchOptions = {
+        method: "DELETE",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: ""
+    }
+    alert(id)
+    const response = await fetch(localBowlingBookingApi + "/" + id, fetchOptions);
+
+    // Refresh page on reload
+    if (response.ok) {
+        document.location.reload();
+
+        /*
+        FIX NEEDED
+        */
+        datePicker.value = startDateTime.value;
+        /*
+        FIX NEEDED
+        */
+    }
+    return response;
+}
