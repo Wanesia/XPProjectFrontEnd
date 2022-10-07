@@ -30,21 +30,22 @@ body{
     flex:1;
     border:0;
     outline:none;
-    padding: 15px 5px;
+    padding: 0px 5px;
     font-size: 20px;
     color:white;
     margin-top: 10px;
+    width: 100%;
 }
 
 .search-bar button img{
-    width:40px;
+    width:30px;
 }
 
 .search-bar button{
     border:0;
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
+    width: 45px;
+    height: 45px;
     background:purple;
     cursor: pointer;
 }
