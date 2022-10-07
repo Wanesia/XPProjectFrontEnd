@@ -15,7 +15,7 @@ const generateTable = document.getElementById("generateTable");
 let datePicker = document.getElementById("date");
 /* =================================== */
 
-/* ============== Modal ============== */
+/* ============== Booking Modal ============== */
 // Modal itself
 const modal = document.getElementById("modal");
 // Title
@@ -31,6 +31,19 @@ const bookButton = document.getElementById("bookButton");
 const confirmChangesButton = document.getElementById("confirmChangesButton");
 const cancelButton = document.getElementById("cancelButton");
 const closeButton = document.getElementById("closeButton");
+/* =================================== */
+
+/* ============== Table Modal ============== */
+// Modal itself
+const tableModal = document.getElementById("tableModal");
+// Title
+const tableModalTitle = document.getElementById("tableModalTitle");
+// Input fields
+const tableModalText = document.getElementById("tableModalText");
+// Buttons
+const openTableButton = document.getElementById("openTableButton");
+const closeTableButton = document.getElementById("closeTableButton");
+const closeTableModalButton = document.getElementById("closeTableModalButton");
 /* =================================== */
 
 // Load table by default on window render
@@ -146,6 +159,66 @@ async function postRequest(evt, row) {
     return response;
 }
 
+async function closeLane(evt, id, close) {
+    const fetchOptions = {
+        method: "PUT",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: ""
+    }
+
+    const response = await fetch(localTableApi + "/" + id + "?inOrder=" + close.toString() , fetchOptions);
+    // Refresh page on reload
+    if (response.ok) {
+        document.location.reload();
+        /*
+        FIX NEEDED
+        */
+        datePicker.value = startDateTime.value;
+        /*
+        FIX NEEDED
+        */
+    }
+    return response;
+}
+
+function handleTableModal(evt, cell, id) {
+    // If the modal is being displayed, hide it and stop the rest of the function from executing
+    if (!(tableModal.style.display === "none")) {
+        tableModal.style.display = "none";
+        return;
+    }
+    // If the modal is not being displayed, display it
+    tableModal.style.display = "block";
+    tableModalTitle.innerText = "Hockey Table " + id;
+    let hockeyTable = null;
+    for (let table of tableArr) {
+        if (table.id === id) {
+            hockeyTable = table;
+        }
+    }
+    if (hockeyTable.inOrder) {
+        tableModalText.innerText = "Air Hockey table is in order.";
+        openTableButton.setAttribute("style", "display: none");
+        closeTableButton.setAttribute("style", "display: block");
+
+        closeTableButton.addEventListener('click', function(evt) {
+            closeLane(evt, hockeyTable.id, false).then(r => console.log(r));
+        });
+    } else {
+        tableModalText.innerText = "Air Hockey table is closed.";
+        openTableButton.setAttribute("style", "display: block");
+        closeTableButton.setAttribute("style", "display: none");
+
+        openTableButton.addEventListener('click',  function(evt) {
+            closeLane(evt, hockeyTable.id, true).then(r => console.log(r));
+        });
+    }
+    // Close window on button click
+    closeTableModalButton.addEventListener('click', () => {tableModal.style.display = "none"});
+}
+
 /**
  * Takes care of the logic behind the pop-up window that appears when clicking a cell.
  * @param cell HTML element representing the cell that has been selected
@@ -245,6 +318,15 @@ function handleModal(cell, rowCount, isBooked, booking) {
  */
 function loadIndividualCell(cell, bookingArr, rowCount) {
 
+    // Handle closed table
+    for (let table of tableArr) {
+        if (table.id === rowCount && !table.inOrder) {
+            cell.innerText = "Closed"
+            cell.setAttribute("style","background-color: #542367; text-align: center;");
+            return; // Function stops executing here if table is closed
+        }
+    }
+
     cell.classList.add("interactive-cell");
 
     function establishCellState(isFree, booking) {
@@ -289,11 +371,15 @@ function createRow(table) {
     // Row which is currently being generated established by the entity ID from the back-end
     const rowCount = table.id;
     // Generating row itself, no cells yet.
-    let row = tableBody.insertRow(rowCount - 1)
+    let row = tableBody.insertRow(rowCount - 1);
     // Generate the first cell, used for the row number
     let tableNumber = row.insertCell();
     // Establish first cell text as the table number
     tableNumber.innerText = rowCount;
+    tableNumber.classList.add("interactive-table");
+    tableNumber.addEventListener('click', function (evt) {
+        handleTableModal(evt, tableNumber, rowCount);
+    });
     // Populate all 12 timeslots with cells
     for (let i = 1; i < 13; i++) {
         row.insertCell(i);
