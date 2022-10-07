@@ -120,9 +120,9 @@ function handleModal(cell, rowCount, isBooked, booking) {
                         "booked": false
                     }
                 }
-                alert(rowCount)
+
                 fetchOptions.body = JSON.stringify(newBooking);
-                alert(fetchOptions.body)
+
                 const response = await fetch(localBowlingBookingApi, fetchOptions);
                 // Refresh page on reload
                 if (response.ok) {
