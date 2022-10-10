@@ -1,5 +1,4 @@
-.content
-{
+.content {
     background-image: url('../../resources/stock-bg.jpg');
     background-position: center;
     background-repeat: no-repeat;
@@ -13,23 +12,34 @@
     opacity: 0.8;
 }
 
-.buttons
-{
+.buttons {
     position: absolute;
     top: 45%;
     left: 17%;
     z-index: 1;
-
 }
-
-.stockTableElement{
-    width: 40%;
-    margin: 5px;
-    padding: 5px 5px;
+button:hover {
+    color: black;
+    text-shadow: none;
+    background-color:white;
+    transition: all 0.3s ease-in-out;
 }
-
-.stockPageButton
-{
+.button-order {
+    position: absolute;
+    top: 75%;
+    left: 72%;
+    z-index: 1;
+    font-size: 2rem;
+}
+.button-back {
+    position: absolute;
+    top: 85%;
+    left: 72%;
+    z-index: 1;
+    font-size: 2rem;
+    padding:0 3.4rem;
+}
+.stockPageButton {
     background-color: transparent;
     border-radius: 5px;
     border-color: aqua;
@@ -42,57 +52,34 @@
     padding: 0 2.5rem;
 }
 
-button:hover{
-    color: black;
-    text-shadow: none;
-    background-color:white;
-    transition: all 0.3s ease-in-out;
+.stockTableElement {
+    width: 30%;
+    margin: 5px;
+    padding: 1px 1px;
 }
 
-.button-order
-{
-    position: absolute;
-    top: 75%;
-    left: 72%;
-    z-index: 1;
-    font-size: 2rem;
-}
-.button-back{
-    position: absolute;
-    top: 85%;
-    left: 72%;
-    z-index: 1;
-    font-size: 2rem;
-    padding:0 3.4rem;
-}
 table, th, tr, td {
     position: relative;
     z-index: 2;
     border: 2px solid black;
-    padding:1rem;
-}
-td:last-child{
-    width:50%;
+    padding: 1rem;
 }
 
-input {
+td:first-child {
     width: 20%;
 }
-
-table {
-    background-color: white;
-    left: 25%;
-    top: 22vh;
-
-    width: 50%;
+td {
+    width: 35%;
+}
+td:last-child {
+    width: 30%;
 }
 
 .stockManageTable {
     background-color: white;
-    left: 30%;
-    top: 22vh;
+    left: 32%;
     width: 30%;
-    td: 5%
+    top: 25vh;
 }
 
 .layer {
@@ -150,8 +137,8 @@ ul {
     padding: 0;
     font-family: 'Roboto', sans-serif;
 }
-a{
 
+a {
     color: white;
 }
 a:hover{
@@ -206,11 +193,17 @@ a:hover{
     z-index: 1000;
 }
 
-.dropdown-content a:hover {background-color: #ddd;}
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
 
-.dropdown:hover .dropdown-content {display: inline-block;}
+.dropdown:hover .dropdown-content {
+    display: inline-block;
+}
 
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
 
 #stock-drop-down {
     position: relative;
@@ -219,5 +212,4 @@ a:hover{
     padding:1rem;
     left: 37%;
     top: 22vh;
-
 }
