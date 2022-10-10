@@ -34,9 +34,9 @@ function createRow(stock) {
     cell.appendChild(updateButton);
     updateButton.addEventListener('click', () => {
         updateStock(stock, inputField.value);
-
     })
 }
+
 //updates the stock quantity. triggered when the updateButton is pressed
 async function updateStock(stock, newQuantity) {
     stock.quantity = newQuantity;
@@ -57,7 +57,8 @@ async function restUpdateStock(stock) {
     const response = await fetch(url, fetchOptions)
     return jsonString;
 }
-//gets the joson array of objects
+
+//gets the json array of objects
 async function fetchStock(url) {
     return fetch(url).then(response => response.json())
 }
@@ -67,11 +68,13 @@ async function doFetchStock() {
     stockArray = await fetchStock(localStockApi)
     stockArray.forEach(createTable)
 }
+
 //clears the table before it is repopulated. uses jquery, so you'll need to add it in your html
 function clear() {
     $(function () {
         $(".stockManageTable").find("tr:not(:first)").remove();
     });
 }
+
 //fetches the db if option is selected
-tableOption.addEventListener('click', doFetchStock)
+tableOption.addEventListener('change', doFetchStock)
