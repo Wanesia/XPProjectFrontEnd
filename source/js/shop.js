@@ -45,18 +45,22 @@ function loadIntoTable() {
 }
 
 function populateTable(data) {
-    let index = 0;
+    // let index = 0;
     let idCounter = 0;
     let tableBody = document.getElementById("table_body")
     data.map(stock => {
         let fieldName = "number" + idCounter++;
         let quantityFieldName = "quantity" + idCounter;
+        let priceFieldName = "price" + idCounter;
         let tr = document.createElement("tr")
+
         tr.innerHTML = `
-                <td>${stock.id}</td>
+                <td style="display: none">${stock.id}</td>
                 <td>${stock.name}</td>
                 <td id="${quantityFieldName}">${stock.quantity}</td>
-                <td><button class="button-to-order" onclick="sell('${stock.id}','${stock.name}','${fieldName}', '${stock.quantity}', '${quantityFieldName}')">Sell</button></td> 
+                <td id="${priceFieldName}">${stock.price}</td>
+                <td><button class="button-to-sell" onclick="sell('${stock.id}','${stock.name}','${fieldName}', '${stock.quantity}', '${quantityFieldName}')">Sell</button></td>
+                <td><button class="button-to-edit">Edit</button></td>
             `
         tableBody.appendChild(tr);
     })

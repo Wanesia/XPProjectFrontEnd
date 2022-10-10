@@ -1,13 +1,108 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-* {
-    margin: 0;
-    padding: 0;
-    font-family: 'Roboto', sans-serif;
-    color: white;
+.content
+{
+    background-image: url("../../resources/shop-bg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    float: left;
+    width: 100%;
+    height: 100vh;
+    overflow: scroll;
+    opacity: 0.8;
 }
 
-body {
-    background-image: url("../../resources/shop-bg.jpg");
+
+.buttons
+{
+    position: absolute;
+    top: 45%;
+    left: 17%;
+    z-index: 1;
+
+}
+
+.topOfTable{
+    position: relative;
+    z-index: 2;
+    border: 2px solid black;
+    padding:1rem;
+    left: 47%;
+    top: 22vh;
+}
+
+.stockTableElement{
+    width: 40%;
+    margin: 5px;
+    padding: 5px 5px;
+}
+
+.stockPageButton
+{
+    background-color: transparent;
+    border-radius: 5px;
+    border-color: aqua;
+    text-transform: uppercase;
+    color: white;
+    text-shadow: 2px 2px black;
+    font-size: 4rem;
+    text-align: center;
+    margin-left: 7vw;
+    padding: 0 2.5rem;
+}
+
+button:hover{
+    color: black;
+    text-shadow: none;
+    background-color:white;
+    transition: all 0.3s ease-in-out;
+}
+
+.button-order
+{
+    position: absolute;
+    top: 75%;
+    left: 72%;
+    z-index: 1;
+    font-size: 2rem;
+}
+.button-back{
+    position: absolute;
+    top: 85%;
+    left: 72%;
+    z-index: 1;
+    font-size: 2rem;
+    padding:0 3.4rem;
+}
+table, th, tr, td {
+    position: relative;
+    z-index: 2;
+    border: 2px solid black;
+    padding:1rem;
+}
+/*td:last-child{*/
+/*    width:50%;*/
+/*}*/
+
+input {
+    width: 20%;
+}
+
+table {
+    background-color: white;
+    left: 25%;
+    top: 22vh;
+
+    width: 50%;
+}
+
+.stockManageTable {
+    background-color: white;
+    left: 30%;
+    top: 22vh;
+    width: 30%;
+    td: 5%
 }
 
 .layer {
@@ -17,6 +112,15 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 1;
+}
+
+.material-icons {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    height: 5rem;
+    font-size: 3rem;
 }
 
 ul {
@@ -32,7 +136,6 @@ ul {
     text-decoration: none;
     display: inline-block;
     position: relative;
-    background-color: rgba(0, 0, 0, 0.1);
     border-radius: 0.5rem;
     padding: 0.25rem;
 }
@@ -50,6 +153,22 @@ ul {
 .hover-underline-animation:hover::before {
     width: 100%;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+a{
+
+    color: white;
+}
+a:hover{
+    text-decoration: none;
+    color: white;
+}
+
 .home-icon {
     position: absolute;
     height: 5rem;
@@ -61,49 +180,61 @@ ul {
     top:0;
     left:0;
 }
-button {
-    background-color: transparent;
-    border-radius: 5px;
-    border-color: aqua;
-    text-transform: uppercase;
+
+.dropbtn {
+    background-color: #04AA6D;
     color: white;
-    text-shadow: 2px 2px black;
-    font-size: 1.25rem;
-    text-align: center;
-    padding: 0 2.5rem;
-    margin: 2rem 5rem 0 0;
-    width: 80%;
-    display:block;
-
+    padding: 16px;
+    font-size: 16px;
+    border: none;
 }
 
-button:hover{
+.dropdown {
+    /*position: relative;*/
+    /*display: inline-block;*/
+    left: 40%;
+    top: 22vh;
+    width: 30%;
+    td: 5%;
+    z-index: 2;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 3;
+}
+
+.dropdown-content a {
     color: black;
-    text-shadow: none;
-    background-color:white;
-    transition: all 0.3s ease-in-out;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    z-index: 1000;
 }
-.content{
-    margin-top: 3rem;
-    display:flex;
-    align-items: center;
-    justify-content:space-evenly;
-}
-.btn{
-    float: right;
-}
-table{
-    font-size: 1.5rem;
-    padding: 1rem;
-    margin:2rem;
-    width: 100%;
-    text-align: center;
-    background-color: rgba(0,0,0,0.5);
-    border-radius: 2rem;
 
+.dropdown-content a:hover {background-color: #ddd;}
 
+.dropdown:hover .dropdown-content {display: inline-block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+#stock-drop-down {
+    position: relative;
+    z-index: 2;
+    border: 2px solid black;
+    padding:1rem;
+    left: 37%;
+    top: 22vh;
 }
-th{
-    background-color:black;
-    border: 1px solid aqua;
+
+.button-to-sell{
+    width: 60px;
+}
+
+.button-to-edit{
+    width: 60px;
 }
