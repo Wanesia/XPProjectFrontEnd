@@ -7,7 +7,7 @@
 }
 
 body {
-    background-image: url("../../resources/main-background.png");
+    background-image: url("../../resources/staff-bg.jpg");
 }
 
 .layer {
@@ -32,7 +32,6 @@ ul {
     text-decoration: none;
     display: inline-block;
     position: relative;
-    background-color: rgba(0, 0, 0, 0.1);
     border-radius: 0.5rem;
     padding: 0.25rem;
 }
@@ -50,16 +49,6 @@ ul {
 .hover-underline-animation:hover::before {
     width: 100%;
 }
-
-h1 {
-    text-align: center;
-    margin-top: 12rem;
-    letter-spacing: 0.5rem;
-    text-transform: uppercase;
-    font-size: 5rem;
-    margin-left: 5rem;
-    text-shadow: 2px 2px purple;
-}
 .home-icon {
     position: absolute;
     height: 5rem;
@@ -71,17 +60,20 @@ h1 {
     top:0;
     left:0;
 }
-.btn-shop
-{   margin: 2rem 0 0 37rem;
+button {
     background-color: transparent;
     border-radius: 5px;
     border-color: aqua;
     text-transform: uppercase;
     color: white;
     text-shadow: 2px 2px black;
-    font-size: 3.5rem;
+    font-size: 1.25rem;
     text-align: center;
     padding: 0 2.5rem;
+    margin: 2rem 5rem 0 0;
+    width: 80%;
+    display:block;
+
 }
 
 button:hover{
@@ -89,4 +81,28 @@ button:hover{
     text-shadow: none;
     background-color:white;
     transition: all 0.3s ease-in-out;
+}
+.content{
+    margin-top: 3rem;
+    display:flex;
+    align-items: center;
+    justify-content:space-evenly;
+}
+.btn{
+    float: right;
+}
+table{
+    font-size: 1.5rem;
+    padding: 1rem;
+    margin:2rem;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 2rem;
+
+
+}
+th{
+    background-color:black;
+    border: 1px solid aqua;
 }
