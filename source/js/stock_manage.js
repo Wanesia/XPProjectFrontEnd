@@ -8,15 +8,18 @@ let stockArray = [];
 
 //creates table based on the option, taking data from stockArray
 async function createTable(stock) {
-    if (tableOption.value == "All") {
+    if (tableOption.value === "All") {
         createRow(stock)
+        console.log("all")
     } else if (stock.category === tableOption.value){
         createRow(stock)
+        alert(tableOption.value)
     }
 }
 
 //Used to create the table(row by row) using data from stock. 
 function createRow(stock) {
+    console.log(stock.id)
     let cellCount = 0
     let rowCount = stockTable.rows.length
     let row = stockTable.insertRow(rowCount)
@@ -77,4 +80,4 @@ function clear() {
 }
 
 //fetches the db if option is selected
-tableOption.addEventListener('change', doFetchStock)
+tableOption.addEventListener('click', doFetchStock)
