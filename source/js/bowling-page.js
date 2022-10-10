@@ -88,7 +88,6 @@ function handleModal(cell, rowCount, isBooked, booking) {
                 }
 
                 fetchOptions.body = JSON.stringify(updatedBooking);
-                alert(fetchOptions.body)
                 const response = await fetch(localBowlingBookingApi + "/" + booking.id, fetchOptions);
                 // Refresh page on reload
                 if (response.ok) {
