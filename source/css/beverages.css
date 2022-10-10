@@ -1,6 +1,7 @@
 .content
 {
-    background-image: url('../../resources/beverage-bg.jpg');
+    /*background-image: url('../../resources/beverage-bg.jpg');*/
+    background-image: url("../../resources/shop-bg.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -12,6 +13,7 @@
     overflow: scroll;
     opacity: 0.8;
 }
+
 
 .buttons
 {
