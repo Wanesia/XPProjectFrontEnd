@@ -56,6 +56,7 @@ function createRow(stock) {
     updateButton.addEventListener('click', () => {
         if(inputFieldUpdate.value < stock.quantity) {
             updateStock(stock, inputFieldUpdate.value);
+            showByCategory();
         }
     })
     // button to order stock item in quantity
@@ -63,8 +64,31 @@ function createRow(stock) {
         if(inputFieldOrder.value > 0) {
             let newStockQuantity = parseInt(stock.quantity) + parseInt(inputFieldOrder.value)
             updateStock(stock, newStockQuantity);
+            showByCategory();
         }
     })
+}
+
+function showByCategory() {
+    var value = tableOption.options[tableOption.selectedIndex].value;
+    console.log(value);
+    let categoryValue = "?category=" + value;
+    $.ajax({
+        type: "GET",
+        contentType: "application/json",
+        url: localStockApi + categoryValue,
+        dataType: 'json',
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
+            console.log(data);
+            clear();
+            doFetchStock();
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
 }
 
 //updates the stock quantity. triggered when the updateButton is pressed
