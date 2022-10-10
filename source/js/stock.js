@@ -130,4 +130,4 @@ function clear() {
 }
 
 //fetches the db if option is selected
-tableOption.addEventListener('click', doFetchStock)
+tableOption.addEventListener('change', doFetchStock)
