@@ -132,7 +132,6 @@ async function restDeleteCustomer(customer) {
 }
 
 async function restPutDiningBooking(booking) {
-    console.log(booking.id)
     const url = "http://localhost:8080/api/v1/dining-booking"
 
     const fetchOptions = {
@@ -147,10 +146,9 @@ async function restPutDiningBooking(booking) {
     fetchOptions.body = jsonString;
 
     //calls backend and wait for return
-    const response = await fetch(url, fetchOptions).then(fetchBookedTables);
-    timeOnChange()
-    console.log(response)
-    return response;
+    const response = await fetch(url, fetchOptions)
+    timeOnChange();
+    return response.status
 }
 
 async function restPostDiningBooking(booking) {
@@ -168,13 +166,9 @@ async function restPostDiningBooking(booking) {
     fetchOptions.body = jsonString;
 
     //calls backend and wait for return
-    const response = await fetch(url, fetchOptions).then(fetchBookedTables);
+    const response = await fetch(url, fetchOptions)//.then(fetchBookedTables)
     timeOnChange()
-    if (!response.ok) {
-        console.log("Fix bugs");
-    };
-
-    return response;
+    return response.status;
 }
 
 function addClicker(table) {
@@ -187,36 +181,41 @@ function addClicker(table) {
         newTime.disabled = true;
         newDate.disabled = true;
         modalTitle.innerHTML = table.id;
-        saveButton.addEventListener("click", e=>{
+        document.getElementById("errorText").style.display = "none"
+        saveButton.addEventListener("click", async e => {
             let bookingId;
             bookings.forEach(bookingFetched => {
                 let currentEnd = new Date(dateTimeInput.value + " " + timeInput.value)
                 currentEnd.setHours(currentEnd.getHours() + 1);
-                console.log(bookingFetched.startDateTime <= dateTimeInput.value + " " + timeInput.value)
-                console.log(dateTimeInput.value + " " + padTo2Digits(currentEnd.getHours()) + ":" + padTo2Digits(currentEnd.getMinutes()))
-                if(bookingFetched.startDateTime <= dateTimeInput.value + " " + timeInput.value
+                if (bookingFetched.startDateTime <= dateTimeInput.value + " " + timeInput.value
                     && bookingFetched.endDateTime <= dateTimeInput.value + " " + padTo2Digits(currentEnd.getHours()) + ":" + padTo2Digits(currentEnd.getMinutes())
-                    && bookingFetched.diningTable.id == modalTitle.innerHTML){
+                    && bookingFetched.diningTable.id == modalTitle.innerHTML) {
                     bookingId = bookingFetched.id;
                 }
             })
             let endDateTime = new Date(document.getElementById("newDate").value + " " + document.getElementById("newTime").value)
             endDateTime.setHours(endDateTime.getHours() + 1);
-            console.log(bookingId)
             let booking = {
                 id: bookingId,
                 startDateTime: document.getElementById("newDate").value + " " + document.getElementById("newTime").value,
                 endDateTime: document.getElementById("newDate").value + " " + padTo2Digits(endDateTime.getHours()) + ":" + padTo2Digits(endDateTime.getMinutes()),
-                diningTable:{
+                diningTable: {
                     id: modalTitle.innerHTML.replace("Table ", ""),
                     booked: false,
                 }
             }
-            if(document.getElementById("firstName").value != "" && document.getElementById("lastName").value != "" && document.getElementById("phoneNumber").value != "") {
-                restPutDiningBooking(booking)
+            if (document.getElementById("firstName").value != "" && document.getElementById("lastName").value != "" && document.getElementById("phoneNumber").value != "") {
+                const responseCode = await restPutDiningBooking(booking)
+                if (responseCode === 400) {
+                    document.getElementById("errorText").innerHTML =  "You are not able to change the booking for the chosen time, please pick a different time."
+                    document.getElementById("errorText").style.display = "block"
+                } else {
+
+                    modal.style.display = "none";
+                }
             }
-            modal.style.display = "none";
-            inputs.forEach(input=>input.value="")
+
+            inputs.forEach(input => input.value = "")
         })
         cancelButton.addEventListener("click", async e=> {
             if(table.id == modalTitle.innerHTML && table.style.backgroundColor === "#f00511") {
@@ -256,41 +255,49 @@ function addClicker(table) {
             inputs.forEach(input=>input.value="")
             modal.style.display = "none";
         })
-        createButton.addEventListener("click", e => {modal.style.display="none";
-            if(table.id == modalTitle.innerHTML && table.style.backgroundColor !== "#f00511")
-            {
-
-                table.style.backgroundColor="#f00511";
-            }
+        createButton.addEventListener("click", async e => {
+            /*if (table.id == modalTitle.innerHTML && table.style.backgroundColor !== "#f00511") {
+                table.style.backgroundColor = "#f00511";
+            }*/
             let endDateTime = new Date(dateTimeInput.value + " " + timeInput.value)
             endDateTime.setHours(endDateTime.getHours() + 1);
             let booking = {
                 startDateTime: dateTimeInput.value + " " + timeInput.value,
                 endDateTime: dateTimeInput.value + " " + padTo2Digits(endDateTime.getHours()) + ":" + padTo2Digits(endDateTime.getMinutes()),
-                customer:{
+                customer: {
                     firstName: document.getElementById("firstName").value,
                     lastName: document.getElementById("lastName").value,
                     phoneNumber: document.getElementById("phoneNumber").value,
                 },
-                diningTable:{
+                diningTable: {
                     id: modalTitle.innerHTML.replace("Table ", ""),
-                    booked:false},
+                    booked: false
+                },
             }
-            if(booking.customer.firstName != "" && booking.customer.lastName != "" && booking.customer.phoneNumber != "")
-            {
-                restPostDiningBooking(booking)
+            if (booking.customer.firstName != "" && booking.customer.lastName != "" && booking.customer.phoneNumber != "") {
+                e.preventDefault()
+                const responseCode = await restPostDiningBooking(booking);
+                if(responseCode === 400)
+                {
+                    document.getElementById("errorText").innerHTML = "You are unable to book this table for this time, as it conflicts with another booking."
+                    document.getElementById("errorText").style.display = "block"
+                }
+                else
+                {
+                    modal.style.display = "none";
+                    const customer = {
+                        "firstName": document.getElementById("firstName").value,
+                        "lastName": document.getElementById("lastName").value,
+                        "phoneNumber": document.getElementById("phoneNumber").value,
+                        "tableNumber": modalTitle.innerHTML.replace("Table ", ""),
+                        "timeOfBooking": timeInput.value,
+                        "endTimeOfBooking": padTo2Digits(endDateTime.getHours()) + ":" + padTo2Digits(endDateTime.getMinutes()),
+                        "dateOfBooking": dateTimeInput.value
+                    }
+                    customers.push(customer)
+                }
             }
-            const customer = {
-                "firstName": document.getElementById("firstName").value,
-                "lastName": document.getElementById("lastName").value,
-                "phoneNumber": document.getElementById("phoneNumber").value,
-                "tableNumber": modalTitle.innerHTML.replace("Table ", ""),
-                "timeOfBooking": timeInput.value,
-                "endTimeOfBooking": padTo2Digits(endDateTime.getHours()) + ":" + padTo2Digits(endDateTime.getMinutes()),
-                "dateOfBooking": dateTimeInput.value
-            }
-            customers.push(customer)
-            inputs.forEach(input=>input.value="")
+            inputs.forEach(input => input.value = "")
         })
         createButton.style.display = "block"
         cancelButton.style.display = "none"
