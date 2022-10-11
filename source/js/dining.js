@@ -1,4 +1,4 @@
-const tables = document.querySelectorAll(".table")
+let tables;
 const modal = document.getElementById("modal")
 const modalTitle = document.querySelector(".modal-title")
 const closeButton = document.getElementById("closeButton")
@@ -77,15 +77,13 @@ function dateOnChange()
 
 function timeOnChange()
 {
+    tables = document.querySelectorAll(".table")
     let endDateTime = new Date(dateTimeInput.value + " " + timeInput.value)
     endDateTime.setHours(endDateTime.getHours() + 3);
     tables.forEach(table => table.style.backgroundColor="#704F32")
     timeVal = timeInput.value + ":00"
-    if(dateTimeInput.value !== "")
-    {
-        tables.forEach(addClicker)
-        fetchBookedTables()
-    }
+    tables.forEach(addClicker)
+    fetchBookedTables()
 }
 
 function padTo2Digits(num) {
@@ -319,13 +317,13 @@ function addClicker(table) {
             newDate.disabled = false;
         }})
     }
-    if(timeInput.value <= "21:00")
-    {
-        table.addEventListener("click",tableClick)
-    }
-    else if(timeInput.value > "21:00" || timeInput.value < "10:00")
+    if(timeInput.value > "21:00" || timeInput.value < "10:00")
     {
         table.replaceWith(table.cloneNode(true))
+    }
+    if(timeInput.value <= "21:00" && timeInput.value >= "10:00")
+    {
+        table.addEventListener("click",tableClick)
     }
 }
 
@@ -334,12 +332,12 @@ function newTimeOnChange()
     if(newTime.value > "21:00")
     {
         newTime.value = "21:00"
-        alert();
+        alert("You cannot book a table after 21:00");
     }
     if(newTime.value < "10:00")
     {
         newTime.value = "10:00"
-        alert();
+        alert("You cannot book a table before 10:00");
     }
 }
 
