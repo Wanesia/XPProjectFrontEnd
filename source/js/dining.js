@@ -167,7 +167,7 @@ async function restPostDiningBooking(booking) {
 
     //calls backend and wait for return
     const response = await fetch(url, fetchOptions)//.then(fetchBookedTables)
-    timeOnChange()
+    //timeOnChange()
     return response.status;
 }
 
@@ -256,9 +256,6 @@ function addClicker(table) {
             modal.style.display = "none";
         })
         createButton.addEventListener("click", async e => {
-            /*if (table.id == modalTitle.innerHTML && table.style.backgroundColor !== "#f00511") {
-                table.style.backgroundColor = "#f00511";
-            }*/
             let endDateTime = new Date(dateTimeInput.value + " " + timeInput.value)
             endDateTime.setHours(endDateTime.getHours() + 1);
             let booking = {
@@ -281,6 +278,9 @@ function addClicker(table) {
                 {
                     document.getElementById("errorText").innerHTML = "You are unable to book this table for this time, as it conflicts with another booking."
                     document.getElementById("errorText").style.display = "block"
+                    createButton.style.display = "block"
+                    cancelButton.style.display = "none"
+                    saveButton.style.display = "none"
                 }
                 else
                 {
