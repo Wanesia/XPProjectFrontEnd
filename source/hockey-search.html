@@ -18,7 +18,7 @@
   <div class="search">
     <label for="hockey-drop-down">Choose Search option</label>
     <select name="hockey-drop-down" id="hockey-drop-down" autocomplete="off">
-      <option value="LaneNumber">Lane Number</option>
+      <option value="LaneNumber">Table Number</option>
       <option value="StartDate">Start Date</option>
       <option value="EndDate">End Date</option>
       <option value="CustomerFirstName">Customer First Name</option>
@@ -27,13 +27,14 @@
     </select>
     <form action="" class="search-bar">
       <label>
-        <input type="text" placeholder="search anything" name =q>
+        <input type="text" id="search-field" placeholder="search anything" name =q>
       </label>
       <button id="hockeySearchButton" type="button"><img src="/resources/search.png" alt="search-icon"> </button>
     </form>
   </div>
 </div>
 <div id="root">
+
 </div>
 <script src="js/hockey-search.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
