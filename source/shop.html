@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/shop.css">
 </head>
-<body onload="loadIntoTable()">
+<body onload="doFetchStock()">
 <div class="layer" id="navbar">
     <div class="top">
         <a class="home-link" href="index.html">
@@ -25,13 +25,7 @@
     </div>
 </div>
 <div>
-    <!--    <label for="stock-drop-down">Choose Stock</label>-->
-    <!--    <select name="stock-drop-down" id="stock-drop-down" autocomplete="off" onChange="showByCategory()">-->
-    <!--        <option value="All" selected>All</option>-->
-    <!--        <option value="Bowling">Bowling</option>-->
-    <!--        <option value="Hockey">Air Hockey</option>-->
-    <!--        <option value="Dining">Dining</option>-->
-    <!--    </select>-->
+
     <button class="topOfTable" id="addBeverage">Add beverage</button>
 </div>
 <table id="stock-order">
@@ -60,6 +54,10 @@
                 <label class="modal-label" for="newBeveragePrice">Beverage Price</label>
                 <input id="newBeveragePrice" class="inputs" type="number" autocomplete="off">
                 <br>
+                <div id="newBeverageQuantityLabel">
+                <label  class="modal-label" for="newBeverageQuantity" >Beverage Quantity</label>
+                <input id="newBeverageQuantity" class="inputs" type="text" autocomplete="off">
+                </div>
             </div>
             <div class="modal-footer">
 
