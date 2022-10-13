@@ -13,7 +13,7 @@ function injectBookings(booking) {
     console.log(booking)
     const newDiv = document.createElement("div");
     newDiv.classList.add("entity-container");
-    newDiv.innerHTML = booking.customer.firstName;
+    newDiv.innerHTML = "Table Number: " +  booking.hockeyTable.id + "\n" + " First Name: " + booking.customer.firstName + " Last Name: " + booking.customer.lastName;
     root.appendChild(newDiv);
 }
 
