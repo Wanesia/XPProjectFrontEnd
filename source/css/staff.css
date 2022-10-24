@@ -7,7 +7,11 @@
 }
 
 body {
-    background-image: url("../../resources/staff-bg.jpg");
+    background: url("../../resources/staff-bg.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .layer {
@@ -60,7 +64,17 @@ ul {
     top:0;
     left:0;
 }
-button {
+
+a {
+    color: white;
+}
+
+a:hover{
+    text-decoration: none;
+    color: white;
+}
+
+#create {
     background-color: transparent;
     border-radius: 5px;
     border-color: aqua;
@@ -73,10 +87,9 @@ button {
     margin: 2rem 5rem 0 0;
     width: 80%;
     display:block;
-
 }
 
-button:hover{
+#create:hover{
     color: black;
     text-shadow: none;
     background-color:white;
@@ -88,10 +101,11 @@ button:hover{
     align-items: center;
     justify-content:space-evenly;
 }
-.btn{
+#create {
     float: right;
 }
-table{
+
+.staff-table{
     font-size: 1.5rem;
     padding: 1rem;
     margin:2rem;
@@ -99,10 +113,21 @@ table{
     text-align: center;
     background-color: rgba(0,0,0,0.5);
     border-radius: 2rem;
-
-
 }
+
 th{
     background-color:black;
     border: 1px solid aqua;
+}
+
+.modal-text, .modal-label {
+    color: black;
+}
+
+#cancelButton {
+    display: none;
+}
+
+#bookButton {
+    display: none;
 }

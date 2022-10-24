@@ -46,6 +46,12 @@ const closeTableButton = document.getElementById("closeTableButton");
 const closeTableModalButton = document.getElementById("closeTableModalButton");
 /* =================================== */
 
+/* ============= In-Memory Data ============= */
+let inMemoryBooking = {};
+let inMemoryHockeyTable = {};
+let inMemoryRowCount = -1;
+/* =================================== */
+
 // Load table by default on window render
 document.addEventListener("DOMContentLoaded", () => {
     generateTable.click();
@@ -73,17 +79,12 @@ async function putRequest(evt, id) {
         + urlPhoneNumber
 
     const response = await fetch(url, fetchOptions);
-    // Refresh page on reload
+    // Refresh table on reload
     if (response.ok) {
-        document.location.reload();
-
-        /*
-        FIX NEEDED
-        */
-        datePicker.value = startDateTime.value;
-        /*
-        FIX NEEDED
-        */
+        tableBody.innerHTML = "";
+        datePicker.value = startDateTime.value.split("T")[0];
+        generateTable.click();
+        closeButton.click();
     }
     return response;
 }
@@ -98,18 +99,13 @@ async function deleteRequest(evt, id) {
     }
 
     const response = await fetch(localHockeyBookingApi + "/" + id, fetchOptions);
-
-    // Refresh page on reload
+    // Refresh table on reload
     if (response.ok) {
-        document.location.reload();
-
-        /*
-        FIX NEEDED
-        */
-        datePicker.value = startDateTime.value;
-        /*
-        FIX NEEDED
-        */
+        tableBody.innerHTML = "";
+        // Make sure the user is at the previous date and close modal automatically
+        datePicker.value = startDateTime.value.split("T")[0];
+        generateTable.click();
+        closeButton.click();
     }
     return response;
 }
@@ -122,8 +118,6 @@ async function postRequest(evt, row) {
         },
         body: ""
     }
-
-    console.log(row);
 
     const newBooking = {
         "startDateTime": startDateTime.value
@@ -144,17 +138,12 @@ async function postRequest(evt, row) {
 
     fetchOptions.body = JSON.stringify(newBooking);
     const response = await fetch(localHockeyBookingApi, fetchOptions);
-    // Refresh page on reload
+    // Refresh table on reload
     if (response.ok) {
-        document.location.reload();
-
-        /*
-        FIX NEEDED
-        */
-        datePicker.value = startDateTime.value;
-        /*
-        FIX NEEDED
-        */
+        tableBody.innerHTML = "";
+        datePicker.value = startDateTime.value.split("T")[0];
+        generateTable.click();
+        closeButton.click();
     }
     return response;
 }
@@ -169,20 +158,55 @@ async function closeLane(evt, id, close) {
     }
 
     const response = await fetch(localTableApi + "/" + id + "?inOrder=" + close.toString() , fetchOptions);
-    // Refresh page on reload
+    // Refresh table on reload
     if (response.ok) {
-        document.location.reload();
-        /*
-        FIX NEEDED
-        */
-        datePicker.value = startDateTime.value;
-        /*
-        FIX NEEDED
-        */
+        tableBody.innerHTML = "";
+        datePicker.value = startDateTime.value.split("T")[0];
+        generateTable.click();
+        closeTableModalButton.click();
     }
     return response;
 }
 
+/**
+ * Takes care of adding event listeners to all modal buttons.
+ * Adding them in handleModal() is a bad idea because it gets called everytime a cell is clicked, meaning that
+ * you end up adding more than one event listener, which causes a myriad of issues because you might be sending
+ * dozens of unexpected requests that were added previously, resulting in duplicated data and very bad things.
+ * Instead of adding a new event listener and passing the new data there, the data in the one event listener is customized
+ * via three global variables "inMemory" which get re-assigned in handleModal() in accordance to which cell or table
+ * has been selected lastly.
+ */
+function declareModalButtonsEventListeners() {
+    // Booking Modal
+    confirmChangesButton.addEventListener("click", function (evt) {
+        putRequest(evt, inMemoryBooking['id']).then(r => console.log(r));
+    });
+    cancelButton.addEventListener("click", function(evt) {
+        deleteRequest(evt, inMemoryBooking['id']).then(r => console.log(r));
+    });
+    bookButton.addEventListener('click', function(evt) {
+        postRequest(evt, inMemoryRowCount).then(r => console.log(r));
+    });
+    closeButton.addEventListener('click', () => {modal.style.display = "none"});
+
+    // Table Modal
+    closeTableButton.addEventListener('click', function(evt) {
+        closeLane(evt, inMemoryHockeyTable.id, false).then(r => console.log(r));
+    });
+
+    openTableButton.addEventListener('click',  function(evt) {
+        closeLane(evt, inMemoryHockeyTable.id, true).then(r => console.log(r));
+    });
+    closeTableModalButton.addEventListener('click', () => {tableModal.style.display = "none"});
+}
+
+/**
+ * Takes care of the logic behind the pop-up window that appears when clicking a table
+ * @param evt Event that triggers the function. Not really used.
+ * @param cell HTML cell, a.k.a. table that has been clicked
+ * @param id  ID of the selected table in the back-end
+ */
 function handleTableModal(evt, cell, id) {
     // If the modal is being displayed, hide it and stop the rest of the function from executing
     if (!(tableModal.style.display === "none")) {
@@ -198,25 +222,17 @@ function handleTableModal(evt, cell, id) {
             hockeyTable = table;
         }
     }
+    // Assign current table to in-memory table, whose data will be used in event listeners to perform API calls
+    inMemoryHockeyTable = hockeyTable;
     if (hockeyTable.inOrder) {
         tableModalText.innerText = "Air Hockey table is in order.";
         openTableButton.setAttribute("style", "display: none");
         closeTableButton.setAttribute("style", "display: block");
-
-        closeTableButton.addEventListener('click', function(evt) {
-            closeLane(evt, hockeyTable.id, false).then(r => console.log(r));
-        });
     } else {
         tableModalText.innerText = "Air Hockey table is closed.";
         openTableButton.setAttribute("style", "display: block");
         closeTableButton.setAttribute("style", "display: none");
-
-        openTableButton.addEventListener('click',  function(evt) {
-            closeLane(evt, hockeyTable.id, true).then(r => console.log(r));
-        });
     }
-    // Close window on button click
-    closeTableModalButton.addEventListener('click', () => {tableModal.style.display = "none"});
 }
 
 /**
@@ -240,6 +256,8 @@ function handleModal(cell, rowCount, isBooked, booking) {
 
         // If the selected cell corresponds to a booking
         if (isBooked) {
+            // Assign current booking to in memory booking, whose data will be used in event listeners to perform API calls
+            inMemoryBooking = booking;
             // Empty input fields from potential previous values
             startDateTime.value = null;
             endDateTime.value = null;
@@ -260,16 +278,10 @@ function handleModal(cell, rowCount, isBooked, booking) {
             confirmChangesButton.setAttribute("style", "display: block");
             cancelButton.setAttribute("style", "display: block");
 
-            confirmChangesButton.addEventListener("click", function (evt) {
-                putRequest(evt, booking['id']).then(r => console.log(r));
-            });
-
-            cancelButton.addEventListener("click", function(evt) {
-                deleteRequest(evt, booking['id']).then(r => console.log(r));
-            });
-
         // If the selected cell does not correspond to a booking
         } else {
+            // Assign current rowCount to in-memory rowCount, whose data will be used in event listeners to perform API calls
+            inMemoryRowCount = rowCount;
             // Empty input fields from potential previous values
             startDateTime.value = null;
             endDateTime.value = null;
@@ -280,33 +292,19 @@ function handleModal(cell, rowCount, isBooked, booking) {
             let selectedStartDateTime = new Date(datePicker.value);
             let selectedEndDateTime = new Date(datePicker.value);
 
-            /*
-            FIX NEEDED
-            */
             // Assign hours to dates, adding 2 hours because javascript, weird conversion from GMT+2 to UTC
             selectedStartDateTime.setHours(cell.timeSlot + 2);
             selectedEndDateTime.setHours(cell.timeSlot + 3);
 
-            // ValueAsDate does not appear to work on Chrome, will have to find a workaround
-            startDateTime.valueAsDate = selectedStartDateTime;
-            endDateTime.valueAsDate = selectedEndDateTime;
-            /*
-            FIX NEEDED
-            */
+            startDateTime.value = selectedStartDateTime.toISOString().slice(0, -1);
+            endDateTime.value = selectedEndDateTime.toISOString().slice(0, -1);
 
             // Show button for POST and hide buttons for PUT and DELETE
             bookButton.setAttribute("style", "display: block");
             confirmChangesButton.setAttribute("style", "display: none");
             cancelButton.setAttribute("style", "display: none");
-
-            // Prepare POST method on bookButton
-            bookButton.addEventListener('click', function(evt) {
-                postRequest(evt, rowCount).then(r => console.log(r));
-            });
         }
     });
-    // Close window on button click
-    closeButton.addEventListener('click', () => {modal.style.display = "none"});
 }
 
 /**
@@ -424,11 +422,7 @@ async function doFetch() {
 }
 // Put fetching functionality on generation button
 generateTable.addEventListener('click', doFetch)
-
-/*
-FIX NEEDED
-*/
+// Assign event listeners to modal buttons
+declareModalButtonsEventListeners();
+// Set current date in date picker
 datePicker.valueAsDate = new Date();
-/*
-FIX NEEDED
-*/
