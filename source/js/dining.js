@@ -165,7 +165,7 @@ async function restPostDiningBooking(booking) {
 
     //calls backend and wait for return
     const response = await fetch(url, fetchOptions)//.then(fetchBookedTables)
-    //timeOnChange()
+    timeOnChange()
     return response.status;
 }
 
@@ -181,6 +181,7 @@ function addClicker(table) {
         modalTitle.innerHTML = table.id;
         document.getElementById("errorText").style.display = "none"
         saveButton.addEventListener("click", async e => {
+            e.preventDefault();
             let bookingId;
             bookings.forEach(bookingFetched => {
                 let currentEnd = new Date(dateTimeInput.value + " " + timeInput.value)
